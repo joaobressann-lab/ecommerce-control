@@ -1,0 +1,44 @@
+name: Pipeline diario
+
+# Cron diario 06h BRT (09h UTC) + disparo manual. CLAUDE.md secao 1 e F1.6.
+on:
+  schedule:
+    - cron: "0 9 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write  # necessario para o commit automatico dos data/*.json
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - run: pip install -r requirements.txt
+
+      # Conector Nuvemshop (F1.3). Builder completo entra na F1.5.
+      - name: Rodar pipeline
+        env:
+          NUVEMSHOP_STORE1_ID: ${{ secrets.NUVEMSHOP_STORE1_ID }}
+          NUVEMSHOP_STORE1_TOKEN: ${{ secrets.NUVEMSHOP_STORE1_TOKEN }}
+          NUVEMSHOP_STORE2_ID: ${{ secrets.NUVEMSHOP_STORE2_ID }}
+          NUVEMSHOP_STORE2_TOKEN: ${{ secrets.NUVEMSHOP_STORE2_TOKEN }}
+          NUVEMSHOP_USER_AGENT: ${{ secrets.NUVEMSHOP_USER_AGENT }}
+          GA4_SERVICE_ACCOUNT_JSON: ${{ secrets.GA4_SERVICE_ACCOUNT_JSON }}
+          GA4_PROPERTY_STORE1: ${{ secrets.GA4_PROPERTY_STORE1 }}
+          GA4_PROPERTY_STORE2: ${{ secrets.GA4_PROPERTY_STORE2 }}
+        run: python -m pipeline.run_nuvemshop
+
+      - name: Commit dos dados
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/
+          git diff --staged --quiet || git commit -m "chore: atualizacao diaria dos dados [skip ci]"
+          git push

@@ -1,0 +1,23 @@
+# Credenciais e ambiente
+.env
+.env.*
+!.env.example
+*.pem
+*.json.key
+service_account*.json
+credentials*.json
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+*.egg-info/
+
+# Saidas locais de debug (os data/*.json versionados sao commitados pela Action)
+scratch/
+*.log
+.DS_Store
+Thumbs.db

@@ -1,0 +1,2 @@
+# Diretorio de saida dos JSONs do pipeline (produtos.json, diario.json, insights.json).
+# Commitados automaticamente pela GitHub Action; o dashboard le via raw.githubusercontent.

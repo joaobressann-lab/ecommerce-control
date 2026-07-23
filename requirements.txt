@@ -1,0 +1,8 @@
+# Pipeline de dados do Controle Geral do E-commerce
+requests==2.32.3
+python-dateutil==2.9.0.post0
+tenacity==9.0.0
+
+# GA4 (F1.4, ainda nao usado pelo conector Nuvemshop)
+google-analytics-data==0.18.16
+google-auth==2.35.0
