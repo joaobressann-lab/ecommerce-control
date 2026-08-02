@@ -4268,8 +4268,8 @@
     {
       "d": "2026-08-02",
       "canal_ga4": "Unassigned",
-      "sessoes": 507,
-      "usuarios": 503,
+      "sessoes": 517,
+      "usuarios": 513,
       "transacoes": 3,
       "receita": 606.63,
       "loja": 1
@@ -4277,8 +4277,8 @@
     {
       "d": "2026-08-02",
       "canal_ga4": "Paid Social",
-      "sessoes": 301,
-      "usuarios": 285,
+      "sessoes": 306,
+      "usuarios": 290,
       "transacoes": 2,
       "receita": 584.42,
       "loja": 1
@@ -4286,8 +4286,8 @@
     {
       "d": "2026-08-02",
       "canal_ga4": "Organic Social",
-      "sessoes": 143,
-      "usuarios": 141,
+      "sessoes": 145,
+      "usuarios": 143,
       "transacoes": 0,
       "receita": 0.0,
       "loja": 1
@@ -4295,8 +4295,8 @@
     {
       "d": "2026-08-02",
       "canal_ga4": "Cross-network",
-      "sessoes": 81,
-      "usuarios": 79,
+      "sessoes": 84,
+      "usuarios": 82,
       "transacoes": 0,
       "receita": 0.0,
       "loja": 1
@@ -4331,8 +4331,8 @@
     {
       "d": "2026-08-02",
       "canal_ga4": "Email",
-      "sessoes": 6,
-      "usuarios": 6,
+      "sessoes": 7,
+      "usuarios": 7,
       "transacoes": 0,
       "receita": 0.0,
       "loja": 1
