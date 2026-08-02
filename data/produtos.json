@@ -1,5 +1,5 @@
 {
-  "gerado_em": "2026-08-02T10:52:19.058059-03:00",
+  "gerado_em": "2026-08-02T11:02:03.520206-03:00",
   "periodo": {
     "inicio": "2026-07-03",
     "fim": "2026-08-02"
@@ -661540,12 +661540,12 @@
       "preco_promocional": null,
       "preco_medio_pago": null,
       "desconto_medio_pct": null,
-      "estoque_total": 25,
+      "estoque_total": 24,
       "grade": {
         "cores": 3,
         "cheia": true,
         "por_tamanho": {
-          "PP": 4,
+          "PP": 3,
           "P": 11,
           "M": 4,
           "G": 3,
@@ -661577,7 +661577,7 @@
           "cor": "(Cabernet)",
           "pantone": null,
           "estoque": {
-            "PP": 3,
+            "PP": 2,
             "P": 10,
             "M": 3,
             "G": 1,
@@ -661808,13 +661808,13 @@
       "preco_promocional": null,
       "preco_medio_pago": 643.9,
       "desconto_medio_pct": 0.0,
-      "estoque_total": 22,
+      "estoque_total": 21,
       "grade": {
         "cores": 3,
         "cheia": true,
         "por_tamanho": {
           "PP": 2,
-          "P": 15,
+          "P": 14,
           "M": 2,
           "G": 3,
           "GG": 0
@@ -661848,7 +661848,7 @@
           "pantone": null,
           "estoque": {
             "PP": 2,
-            "P": 14,
+            "P": 13,
             "M": 2,
             "G": 1,
             "GG": 0
