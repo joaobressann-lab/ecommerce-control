@@ -22,7 +22,11 @@ jobs:
 
       - run: pip install -r requirements.txt
 
-      # Conector Nuvemshop (F1.3). Builder completo entra na F1.5.
+      # Autovalidacao offline (sem rede, sem Secrets): falha rapido se a logica quebrou.
+      - name: Testes offline
+        run: python -m tests.test_offline
+
+      # Pipeline: builder monta produtos.json + diario.json + relatorio de excecoes.
       - name: Rodar pipeline
         env:
           NUVEMSHOP_STORE1_ID: ${{ secrets.NUVEMSHOP_STORE1_ID }}
@@ -33,7 +37,7 @@ jobs:
           GA4_SERVICE_ACCOUNT_JSON: ${{ secrets.GA4_SERVICE_ACCOUNT_JSON }}
           GA4_PROPERTY_STORE1: ${{ secrets.GA4_PROPERTY_STORE1 }}
           GA4_PROPERTY_STORE2: ${{ secrets.GA4_PROPERTY_STORE2 }}
-        run: python -m pipeline.run_nuvemshop
+        run: python -m pipeline.run_build
 
       - name: Commit dos dados
         run: |
