@@ -34,10 +34,15 @@ Em producao as credenciais vivem em GitHub Secrets, nunca em arquivo. Nada hardc
 
 - [x] Estrutura do repo
 - [x] Conector Nuvemshop (produtos, variantes, pedidos, mapa EAN -> ref, relatorio de excecoes)
-- [ ] Auditar classificacao de canal do pedido com payload real (secao 9 do CLAUDE.md)
+- [x] Classificacao de canal auditada em pedidos reais: campo `storefront` (store/mobile = site, api = ANYMARKET)
+- [x] Builder produtos.json + diario.json (score parcial ate GA4)
+- [x] GitHub Action + commit automatico (cron 09h UTC / 06h BRT) validada em producao
 - [ ] Conector GA4 (4 relatorios da secao 4.2)
-- [ ] Builder produtos.json + diario.json
-- [ ] GitHub Action + commit automatico
 - [ ] Dashboard Aba 2 + Aba 1
 - [ ] Solicitar developer token Google Ads
+
+### Numeros da 1a execucao real (Loja 1, 02/08/2026)
+- 2816 produtos no censo (1662 publicados); regex de ref casou 2815/2816.
+- Relatorio de excecoes bateu com o audit do CLAUDE.md: 12 EANs duplicados + 1 produto sem ref.
+- Site (store+mobile) no periodo de 30d: R$ 182.420,19 em 616 transacoes (Mobile 522, Loja virtual 94).
 ```
