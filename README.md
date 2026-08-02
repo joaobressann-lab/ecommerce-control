@@ -37,12 +37,18 @@ Em producao as credenciais vivem em GitHub Secrets, nunca em arquivo. Nada hardc
 - [x] Classificacao de canal auditada em pedidos reais: campo `storefront` (store/mobile = site, api = ANYMARKET)
 - [x] Builder produtos.json + diario.json (score parcial ate GA4)
 - [x] GitHub Action + commit automatico (cron 09h UTC / 06h BRT) validada em producao
-- [ ] Conector GA4 (4 relatorios da secao 4.2)
+- [x] Conector GA4 (4 relatorios da secao 4.2), agregado na ref pai via EAN, validado em producao
 - [ ] Dashboard Aba 2 + Aba 1
 - [ ] Solicitar developer token Google Ads
 
-### Numeros da 1a execucao real (Loja 1, 02/08/2026)
+### Numeros da execucao real (Loja 1, 02/08/2026)
 - 2816 produtos no censo (1662 publicados); regex de ref casou 2815/2816.
 - Relatorio de excecoes bateu com o audit do CLAUDE.md: 12 EANs duplicados + 1 produto sem ref.
-- Site (store+mobile) no periodo de 30d: R$ 182.420,19 em 616 transacoes (Mobile 522, Loja virtual 94).
+- Site (store+mobile) 30d: R$ 182.420,19 em 616 transacoes (Mobile 522, Loja virtual 94).
+- GA4: 844+ produtos com funil/origens/score completo; 65 mil views/30d; canal por storefront.
+- Categorias resolvidas como departamento (Blusas, Vestidos, Calcas...); AUDITAR PDP dispara (129).
+
+### A corrigir no cadastro (relatorio em data/excecoes_nuvemshop.json)
+- Produto "BLUSA ML COM AMARRACAO" sem ref no nome + 12 EANs duplicados.
+- Categoria digitada como "BLUSA" (typo) em 1 produto.
 ```
