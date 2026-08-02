@@ -38,8 +38,9 @@ Em producao as credenciais vivem em GitHub Secrets, nunca em arquivo. Nada hardc
 - [x] Builder produtos.json + diario.json (score parcial ate GA4)
 - [x] GitHub Action + commit automatico (cron 09h UTC / 06h BRT) validada em producao
 - [x] Conector GA4 (4 relatorios da secao 4.2), agregado na ref pai via EAN, validado em producao
+- [x] Duas lojas no pipeline (Loja 1 Carlota+Simone, Loja 2 Ritmi), run completo validado
 - [ ] Dashboard Aba 2 + Aba 1
-- [ ] Solicitar developer token Google Ads
+- [ ] Solicitar developer token Google Ads (em andamento com o Joao)
 
 ### Numeros da execucao real (Loja 1, 02/08/2026)
 - 2816 produtos no censo (1662 publicados); regex de ref casou 2815/2816.
