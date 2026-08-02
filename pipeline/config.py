@@ -37,6 +37,13 @@ USER_AGENT = os.environ.get(
 )
 
 
+# Nome do Secret com o service account JSON do GA4 (definido pelo Joao no repo).
+GA4_CREDENTIALS_ENV = "GA4_CREDENTIALS_JSON"
+
+# IDs das propriedades GA4 por loja (nao sensiveis; override por env se preciso).
+GA4_PROPERTY_DEFAULT = {1: "390081039", 2: "412507997"}
+
+
 @dataclass(frozen=True)
 class StoreConfig:
     """Uma loja Nuvemshop com suas credenciais e marcas atendidas."""
@@ -45,6 +52,7 @@ class StoreConfig:
     nome: str
     store_id: str
     token: str
+    ga4_property: str = ""
     marcas: tuple[str, ...] = field(default_factory=tuple)
 
     @property
@@ -58,6 +66,9 @@ def _store(numero: int, nome: str, marcas: tuple[str, ...]) -> StoreConfig:
         nome=nome,
         store_id=os.environ.get(f"NUVEMSHOP_STORE{numero}_ID", "").strip(),
         token=os.environ.get(f"NUVEMSHOP_STORE{numero}_TOKEN", "").strip(),
+        ga4_property=os.environ.get(
+            f"GA4_PROPERTY_STORE{numero}", GA4_PROPERTY_DEFAULT.get(numero, "")
+        ).strip(),
         marcas=marcas,
     )
 

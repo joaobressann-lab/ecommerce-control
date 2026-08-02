@@ -159,6 +159,32 @@ def test_build_produto_estrela() -> None:
     check(preto["vendas_por_tamanho"].get("M") == 2, "vendas por tamanho M deveria ser 2")
 
 
+def test_merge_ga4() -> None:
+    """Com sinais GA4, funil e origens sao preenchidos e o score deixa de ser parcial."""
+    produtos = [parse_product(PRODUTO_ESTRELA, 1)]
+    mapa = build_ean_ref_map(produtos)
+    linhas = parse_order_lines(PEDIDO, mapa, loja=1)
+    corte_30d = HOJE - timedelta(days=30)
+    vendas = _agregar_vendas(linhas, corte_30d, corte_30d)
+
+    ga4_funil = {"views": 500, "add_cart": 60, "checkout": 25, "compras": 20,
+                 "receita": 5990.0, "cv_view_cart": 12.0, "cv_cart_compra": 33.33, "cv_geral": 4.0}
+    ga4_origens = [{"source": "facebook", "medium": "cpc", "views": 300, "add_cart": 40,
+                    "compras": 12, "receita": 3600.0}]
+    ga4_dia = {(HOJE - timedelta(days=1)).isoformat(): {"views": 40, "compras": 2}}
+
+    prod_json = _montar_produto(produtos[0], vendas.get("CSV1234"), corte_30d, HOJE,
+                                ga4_funil, ga4_origens, ga4_dia)
+    check(prod_json["funil"]["views"] == 500, "funil views deveria vir do GA4")
+    check(prod_json["funil"]["cv_geral"] == 4.0, "cv_geral deveria vir do GA4")
+    check(prod_json["score_parcial"] is False, "com GA4 o score nao deveria ser parcial")
+    check(len(prod_json["origens"]) == 1, "origens deveria ter a linha GA4")
+    ontem = (HOJE - timedelta(days=1)).isoformat()
+    dia = next(d for d in prod_json["serie_30d"] if d["d"] == ontem)
+    check(dia["views"] == 40, "serie deveria ter views do GA4")
+    check(dia["compras"] == 2, "serie deveria manter compras da Nuvemshop")
+
+
 def test_nao_publicado_penalizado() -> None:
     prod = parse_product(PRODUTO_NAO_PUBLICADO, 1)
     corte_30d = HOJE - timedelta(days=30)

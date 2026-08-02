@@ -34,9 +34,7 @@ jobs:
           NUVEMSHOP_STORE2_ID: ${{ secrets.NUVEMSHOP_STORE2_ID }}
           NUVEMSHOP_STORE2_TOKEN: ${{ secrets.NUVEMSHOP_STORE2_TOKEN }}
           NUVEMSHOP_USER_AGENT: ${{ secrets.NUVEMSHOP_USER_AGENT }}
-          GA4_SERVICE_ACCOUNT_JSON: ${{ secrets.GA4_SERVICE_ACCOUNT_JSON }}
-          GA4_PROPERTY_STORE1: ${{ secrets.GA4_PROPERTY_STORE1 }}
-          GA4_PROPERTY_STORE2: ${{ secrets.GA4_PROPERTY_STORE2 }}
+          GA4_CREDENTIALS_JSON: ${{ secrets.GA4_CREDENTIALS_JSON }}
         run: python -m pipeline.run_build
 
       - name: Commit dos dados

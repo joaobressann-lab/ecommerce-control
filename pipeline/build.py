@@ -7,6 +7,8 @@ e Meta/Google (F2/F3). O score usa renormalizacao parcial (ver scoring.py).
 
 from __future__ import annotations
 
+import os
+import statistics
 from collections import defaultdict
 from dataclasses import dataclass
 from datetime import date, datetime, timedelta, timezone
@@ -143,14 +145,20 @@ def _montar_variantes(
     return variantes, grade
 
 
-def _serie_30d(vendas: VendasRef | None, corte_30d: date, hoje: date) -> list[dict[str, Any]]:
-    """Serie diaria de compras (views entram quando GA4 existir)."""
+def _serie_30d(
+    vendas: VendasRef | None,
+    corte_30d: date,
+    hoje: date,
+    ga4_dia: dict[str, dict[str, int]] | None = None,
+) -> list[dict[str, Any]]:
+    """Serie diaria: compras (Nuvemshop, site) + views (GA4, quando disponivel)."""
     serie = []
     dia = corte_30d
     while dia <= hoje:
         chave = _iso(dia)
         compras = vendas.por_dia.get(chave, 0) if vendas else 0
-        serie.append({"d": chave, "views": 0, "compras": compras})
+        views = ga4_dia.get(chave, {}).get("views", 0) if ga4_dia else 0
+        serie.append({"d": chave, "views": views, "compras": compras})
         dia += timedelta(days=1)
     return serie
 
@@ -159,7 +167,13 @@ def _serie_30d(vendas: VendasRef | None, corte_30d: date, hoje: date) -> list[di
 # Montagem do produto
 # ---------------------------------------------------------------------- #
 def _montar_produto(
-    produto: ProdutoNorm, vendas: VendasRef | None, corte_30d: date, hoje: date
+    produto: ProdutoNorm,
+    vendas: VendasRef | None,
+    corte_30d: date,
+    hoje: date,
+    ga4_funil: dict[str, Any] | None = None,
+    ga4_origens: list[dict[str, Any]] | None = None,
+    ga4_dia: dict[str, dict[str, int]] | None = None,
 ) -> dict[str, Any]:
     variantes, grade = _montar_variantes(produto, vendas)
 
@@ -172,12 +186,31 @@ def _montar_produto(
     if preco_medio is not None and produto.preco_cheio:
         desconto_pct = round((1 - preco_medio / produto.preco_cheio) * 100, 1)
 
+    # Funil: GA4 quando disponivel, senao placeholder com compras = vendas de site.
+    if ga4_funil:
+        funil = {
+            "views": ga4_funil["views"], "add_cart": ga4_funil["add_cart"],
+            "checkout": ga4_funil["checkout"], "compras": ga4_funil["compras"],
+            "cv_view_cart": ga4_funil.get("cv_view_cart"),
+            "cv_cart_compra": ga4_funil.get("cv_cart_compra"),
+            "cv_geral": ga4_funil.get("cv_geral"),
+        }
+        views_30d = ga4_funil["views"]
+        cv_geral = ga4_funil.get("cv_geral")
+    else:
+        funil = {"views": 0, "add_cart": 0, "checkout": 0, "compras": v_periodo,
+                 "cv_view_cart": None, "cv_cart_compra": None, "cv_geral": None}
+        views_30d = None
+        cv_geral = None
+
     sinais = SinaisProduto(
         vendas_30d=v_30d,
         vendas_periodo=v_periodo,
         estoque_total=produto.estoque_total,
         grade_cheia=grade["cheia"],
         publicado=produto.publicado,
+        views_30d=views_30d,
+        cv_geral=cv_geral,
     )
     resultado = calcular_score(sinais)
 
@@ -196,13 +229,12 @@ def _montar_produto(
         "estoque_total": produto.estoque_total,
         "grade": grade,
         "variantes": variantes,
-        # Placeholders ate GA4 (F1.4) e Meta/Google (F2/F3):
-        "funil": {"views": 0, "add_cart": 0, "checkout": 0, "compras": v_periodo,
-                  "cv_view_cart": None, "cv_cart_compra": None, "cv_geral": None},
+        "funil": funil,
         "vendas": {"periodo": v_periodo, "d30": v_30d, "receita_periodo": receita},
-        "origens": [],
+        "origens": ga4_origens or [],
+        # Midia (Meta/Google) entra em F2/F3:
         "midia": {"google_custo": None, "google_roas": None, "meta_custo": None, "meta_roas": None},
-        "serie_30d": _serie_30d(vendas, corte_30d, hoje),
+        "serie_30d": _serie_30d(vendas, corte_30d, hoje, ga4_dia),
         "score": resultado.score,
         "classe": resultado.classe,
         "score_parcial": resultado.score_parcial,
@@ -243,6 +275,47 @@ def _montar_diario(
 # ---------------------------------------------------------------------- #
 # Orquestracao
 # ---------------------------------------------------------------------- #
+def _coletar_ga4_loja(loja: StoreConfig, ean_para_ref: dict[str, str], inicio: str, fim: str):
+    """Coleta GA4 da loja se houver propriedade + service account. Import tardio (libs pesadas)."""
+    from .config import GA4_CREDENTIALS_ENV
+
+    if not os.environ.get(GA4_CREDENTIALS_ENV):
+        return None
+    if not loja.ga4_property:
+        return None
+    try:
+        from .ga4 import coletar_ga4  # import tardio: so quando GA4 esta configurado
+        return coletar_ga4(loja.ga4_property, ean_para_ref, inicio, fim)
+    except Exception as exc:  # nao derruba o pipeline se o GA4 falhar
+        print(f"AVISO: GA4 loja {loja.numero} falhou ({exc}). Seguindo sem GA4 nesta loja.")
+        return None
+
+
+def _aplicar_auditar_pdp(produtos_out: list[dict[str, Any]]) -> None:
+    """Gatilho objetivo de AUDITAR PDP (secao 6): views acima da mediana da categoria
+    e cv_geral abaixo de 40% da mediana. So aplica a produtos com dados GA4."""
+    por_cat: dict[tuple, list[dict[str, Any]]] = defaultdict(list)
+    for p in produtos_out:
+        if not p["score_parcial"] and p["funil"]["views"] > 0:
+            por_cat[(p["loja"], p.get("categoria"))].append(p)
+
+    for grupo in por_cat.values():
+        views = [p["funil"]["views"] for p in grupo]
+        cvs = [p["funil"]["cv_geral"] for p in grupo if p["funil"]["cv_geral"] is not None]
+        if len(views) < 4 or not cvs:
+            continue
+        med_views = statistics.median(views)
+        med_cv = statistics.median(cvs)
+        for p in grupo:
+            cv = p["funil"]["cv_geral"]
+            # Nao sobrescreve estados fortes (esgotado, estoque critico, nao publicado).
+            if p["classe"] in {"NAO PUBLICADO", "ESTOQUE CRITICO", "ESGOTADO",
+                               "ESGOTADO c/ demanda"}:
+                continue
+            if p["funil"]["views"] > med_views and cv is not None and cv < 0.40 * med_cv:
+                p["classe"] = "AUDITAR PDP"
+
+
 def construir(
     lojas: list[StoreConfig], periodo_dias: int = 30, janela_dias: int = 30
 ) -> tuple[dict[str, Any], dict[str, Any]]:
@@ -251,10 +324,15 @@ def construir(
     corte_30d = hoje - timedelta(days=30)
     corte_periodo = hoje - timedelta(days=periodo_dias)
     janela_min = (hoje - timedelta(days=max(janela_dias, periodo_dias, 30))).isoformat()
+    ga4_inicio = _iso(corte_30d)
+    ga4_fim = _iso(hoje)
 
     produtos_out: list[dict[str, Any]] = []
     linhas_por_loja: dict[int, list[LinhaVenda]] = {}
     marca_por_ref_global: dict[str, str] = {}
+    trafego_linhas: list[dict[str, Any]] = []
+    ga4_nao_mapeados: dict[int, list[str]] = {}
+    algum_ga4 = False
 
     for loja in lojas:
         client = NuvemshopClient(loja)
@@ -262,25 +340,41 @@ def construir(
         mapa = build_ean_ref_map(produtos)
         vendas_linhas = load_sales(client, mapa, loja.numero, created_at_min=janela_min)
         linhas_por_loja[loja.numero] = vendas_linhas
-
         vendas_por_ref = _agregar_vendas(vendas_linhas, corte_30d, corte_periodo)
+
+        ga4 = _coletar_ga4_loja(loja, mapa.ean_para_ref, ga4_inicio, ga4_fim)
+        if ga4 is not None:
+            algum_ga4 = True
+            for linha in ga4.site_dia:
+                trafego_linhas.append({**linha, "loja": loja.numero})
+            if ga4.eans_nao_mapeados:
+                ga4_nao_mapeados[loja.numero] = sorted(ga4.eans_nao_mapeados)
 
         for prod in produtos:
             if prod.ref:
                 marca_por_ref_global[prod.ref] = prod.marca
             vendas = vendas_por_ref.get(prod.ref) if prod.ref else None
-            produtos_out.append(_montar_produto(prod, vendas, corte_30d, hoje))
+            gfun = ga4.funil.get(prod.ref) if ga4 and prod.ref else None
+            gorig = ga4.origens.get(prod.ref) if ga4 and prod.ref else None
+            gdia = ga4.por_dia.get(prod.ref) if ga4 and prod.ref else None
+            produtos_out.append(
+                _montar_produto(prod, vendas, corte_30d, hoje, gfun, gorig, gdia)
+            )
+
+    _aplicar_auditar_pdp(produtos_out)
 
     produtos_json = {
         "gerado_em": datetime.now(BRT).isoformat(),
         "periodo": {"inicio": _iso(corte_periodo), "fim": _iso(hoje)},
         "meta": {
-            "ga4_disponivel": False,
+            "ga4_disponivel": algum_ga4,
             "midia_disponivel": False,
-            "score_parcial_global": True,
+            "score_parcial_global": not algum_ga4,
             "total_produtos": len(produtos_out),
+            "ga4_eans_nao_mapeados": ga4_nao_mapeados,
         },
         "produtos": produtos_out,
     }
     diario_json = _montar_diario(linhas_por_loja, marca_por_ref_global)
+    diario_json["trafego"] = sorted(trafego_linhas, key=lambda r: (r["d"], r["loja"]))
     return produtos_json, diario_json
