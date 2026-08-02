@@ -12,6 +12,7 @@ from datetime import date, timedelta
 
 from pipeline.build import _agregar_vendas, _montar_produto, _hoje_brt
 from pipeline.nuvemshop import (
+    _categoria_departamento,
     build_ean_ref_map,
     parse_order_lines,
     parse_product,
@@ -27,7 +28,13 @@ PRODUTO_ESTRELA = {
     "name": {"pt": "Vestido Midi Alfaiataria - CSV1234"},
     "published": True,
     "images": [{"src": "https://img/csv1234.jpg"}],
-    "categories": [{"name": {"pt": "Vestidos"}}],
+    "categories": [
+        {"id": 100, "name": {"pt": "Categorias"}, "parent": None, "subcategories": [1, 2]},
+        {"id": 101, "name": {"pt": "Vestidos"}, "parent": 100, "subcategories": [3]},
+        {"id": 102, "name": {"pt": "Vestido midi"}, "parent": 101, "subcategories": []},
+        {"id": 200, "name": {"pt": "ESTACOES"}, "parent": None, "subcategories": [4]},
+        {"id": 201, "name": {"pt": "Vestidos"}, "parent": 200, "subcategories": []},
+    ],
     "variants": [
         {"id": 11, "sku": "7890000000018", "price": "389.90", "promotional_price": "299.90",
          "stock": 3, "values": [{"pt": "Preto"}, {"pt": "P"}]},
@@ -100,6 +107,21 @@ def test_parse_product() -> None:
     check(p.foto == "https://img/csv1234.jpg", "foto nao extraida")
     check(p.categoria == "Vestidos", f"categoria errada: {p.categoria}")
     check(len(p.variantes) == 3, "esperava 3 variantes")
+
+
+def test_categoria_departamento() -> None:
+    # Departamento = filho direto do root "Categorias", ignorando ESTACOES e Sale.
+    cats = [
+        {"id": 1, "name": {"pt": "Categorias"}, "parent": None, "subcategories": [10, 11]},
+        {"id": 10, "name": {"pt": "Sale"}, "parent": 1, "subcategories": []},
+        {"id": 11, "name": {"pt": "Blusas"}, "parent": 1, "subcategories": [12]},
+        {"id": 12, "name": {"pt": "Blusa manga curta"}, "parent": 11, "subcategories": []},
+        {"id": 20, "name": {"pt": "ESTACOES"}, "parent": None, "subcategories": [21]},
+        {"id": 21, "name": {"pt": "Blusas e Camisetas"}, "parent": 20, "subcategories": []},
+    ]
+    dep = _categoria_departamento(cats)
+    check(dep == "Blusas", f"departamento esperado Blusas, veio {dep}")
+    check(_categoria_departamento([]) is None, "lista vazia deveria dar None")
 
 
 def test_ean_map_e_excecoes() -> None:
@@ -195,9 +217,11 @@ def test_nao_publicado_penalizado() -> None:
 def main() -> None:
     testes = [
         test_parse_product,
+        test_categoria_departamento,
         test_ean_map_e_excecoes,
         test_pedido_e_canal,
         test_build_produto_estrela,
+        test_merge_ga4,
         test_nao_publicado_penalizado,
     ]
     for t in testes:

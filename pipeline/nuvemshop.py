@@ -122,6 +122,52 @@ def _classificar_valores(valores: list[str]) -> tuple[str | None, str | None]:
     return cor, tamanho
 
 
+# Categorias que sao promocao/colecao, nao departamento de mercadoria.
+_CATEGORIAS_RUIDO = {"sale", "categorias", "estacoes", "estações", "best sellers",
+                     "atemporais", "full look", "novidades", "lancamentos", "lançamentos"}
+# Nome do root de mercadoria (a arvore cujos filhos diretos sao os departamentos).
+_ROOT_MERCADORIA = "categorias"
+
+
+def _categoria_departamento(categorias: list[dict[str, Any]]) -> str | None:
+    """Departamento de mercadoria = filho direto do root "Categorias".
+
+    A Nuvemshop expoe uma arvore: root "Categorias" (Blusas, Vestidos, Calcas...)
+    e root "ESTACOES" (colecao sazonal). Pegar categorias[0] traria o root generico;
+    o util e o filho direto do root de mercadoria. Fallback: primeira categoria que
+    nao seja root nem ruido de promocao/colecao.
+    """
+    if not categorias:
+        return None
+
+    # Acha o id do root de mercadoria (parent None, nome "Categorias").
+    root_id = None
+    for c in categorias:
+        if c.get("parent") is None and localized(c.get("name")).strip().lower() == _ROOT_MERCADORIA:
+            root_id = c.get("id")
+            break
+    # Fallback: root com mais subcategorias.
+    if root_id is None:
+        roots = [c for c in categorias if c.get("parent") is None]
+        if roots:
+            root_id = max(roots, key=lambda c: len(c.get("subcategories") or [])).get("id")
+
+    # Departamento = primeiro filho direto do root que nao seja ruido.
+    if root_id is not None:
+        filhos = [c for c in categorias if c.get("parent") == root_id]
+        for c in filhos:
+            nome = localized(c.get("name"))
+            if nome and nome.strip().lower() not in _CATEGORIAS_RUIDO:
+                return nome
+
+    # Fallback final: primeira categoria com parent que nao seja ruido.
+    for c in categorias:
+        nome = localized(c.get("name"))
+        if c.get("parent") is not None and nome and nome.strip().lower() not in _CATEGORIAS_RUIDO:
+            return nome
+    return None
+
+
 def parse_product(raw: dict[str, Any], loja: int) -> ProdutoNorm:
     """Converte um produto cru da API na estrutura normalizada, com ref e marca resolvidas."""
     nome = localized(raw.get("name"))
@@ -134,9 +180,8 @@ def parse_product(raw: dict[str, Any], loja: int) -> ProdutoNorm:
     if imagens:
         foto = imagens[0].get("src") or imagens[0].get("url")
 
-    # Categoria: primeira categoria, se houver.
-    categorias = raw.get("categories") or []
-    categoria = localized(categorias[0].get("name")) if categorias else None
+    # Categoria: o departamento de mercadoria (filho direto do root "Categorias").
+    categoria = _categoria_departamento(raw.get("categories") or [])
 
     variantes: list[VarianteNorm] = []
     estoque_total = 0

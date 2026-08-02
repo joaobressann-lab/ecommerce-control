@@ -301,8 +301,12 @@ def _aplicar_auditar_pdp(produtos_out: list[dict[str, Any]]) -> None:
 
     for grupo in por_cat.values():
         views = [p["funil"]["views"] for p in grupo]
-        cvs = [p["funil"]["cv_geral"] for p in grupo if p["funil"]["cv_geral"] is not None]
-        if len(views) < 4 or not cvs:
+        # Mediana de conversao so entre quem converte (cv>0). Incluir os zeros puxaria
+        # a mediana para 0 num catalogo onde a maioria dos vistos nao vende em 30d,
+        # e o gatilho "abaixo de 40% da mediana" nunca dispararia.
+        cvs = [p["funil"]["cv_geral"] for p in grupo
+               if p["funil"]["cv_geral"] is not None and p["funil"]["cv_geral"] > 0]
+        if len(views) < 4 or len(cvs) < 4:
             continue
         med_views = statistics.median(views)
         med_cv = statistics.median(cvs)
