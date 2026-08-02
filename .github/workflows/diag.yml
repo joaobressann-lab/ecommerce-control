@@ -1,0 +1,24 @@
+name: Diagnostico (manual)
+
+# Executa diagnosticos pontuais sob demanda. Nao roda em cron.
+on:
+  workflow_dispatch:
+
+jobs:
+  diag:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Diagnostico de pedidos (campos de canal)
+        env:
+          NUVEMSHOP_STORE1_ID: ${{ secrets.NUVEMSHOP_STORE1_ID }}
+          NUVEMSHOP_STORE1_TOKEN: ${{ secrets.NUVEMSHOP_STORE1_TOKEN }}
+          NUVEMSHOP_STORE2_ID: ${{ secrets.NUVEMSHOP_STORE2_ID }}
+          NUVEMSHOP_STORE2_TOKEN: ${{ secrets.NUVEMSHOP_STORE2_TOKEN }}
+          NUVEMSHOP_USER_AGENT: ${{ secrets.NUVEMSHOP_USER_AGENT }}
+        run: python -m pipeline.diag_orders
