@@ -1356,5 +1356,2995 @@
       "custo_meta": null,
       "custo_google": null
     }
+  ],
+  "trafego": [
+    {
+      "d": "2026-07-03",
+      "canal_ga4": "Paid Social",
+      "sessoes": 587,
+      "usuarios": 527,
+      "transacoes": 2,
+      "receita": 394.01,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-03",
+      "canal_ga4": "Cross-network",
+      "sessoes": 582,
+      "usuarios": 512,
+      "transacoes": 4,
+      "receita": 951.29,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-03",
+      "canal_ga4": "Direct",
+      "sessoes": 222,
+      "usuarios": 185,
+      "transacoes": 3,
+      "receita": 1183.22,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-03",
+      "canal_ga4": "Organic Social",
+      "sessoes": 181,
+      "usuarios": 178,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-03",
+      "canal_ga4": "Paid Search",
+      "sessoes": 149,
+      "usuarios": 116,
+      "transacoes": 2,
+      "receita": 762.51,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-03",
+      "canal_ga4": "Email",
+      "sessoes": 129,
+      "usuarios": 97,
+      "transacoes": 3,
+      "receita": 979.92,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-03",
+      "canal_ga4": "Organic Search",
+      "sessoes": 45,
+      "usuarios": 38,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-03",
+      "canal_ga4": "Unassigned",
+      "sessoes": 17,
+      "usuarios": 9,
+      "transacoes": 3,
+      "receita": 577.02,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-03",
+      "canal_ga4": "Referral",
+      "sessoes": 13,
+      "usuarios": 11,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-03",
+      "canal_ga4": "Organic Shopping",
+      "sessoes": 2,
+      "usuarios": 2,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-03",
+      "canal_ga4": "AI Assistant",
+      "sessoes": 1,
+      "usuarios": 1,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-04",
+      "canal_ga4": "Paid Social",
+      "sessoes": 536,
+      "usuarios": 477,
+      "transacoes": 2,
+      "receita": 405.81,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-04",
+      "canal_ga4": "Cross-network",
+      "sessoes": 508,
+      "usuarios": 442,
+      "transacoes": 5,
+      "receita": 1896.75,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-04",
+      "canal_ga4": "Direct",
+      "sessoes": 201,
+      "usuarios": 158,
+      "transacoes": 2,
+      "receita": 241.62,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-04",
+      "canal_ga4": "Organic Social",
+      "sessoes": 155,
+      "usuarios": 155,
+      "transacoes": 2,
+      "receita": 1554.87,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-04",
+      "canal_ga4": "Paid Search",
+      "sessoes": 106,
+      "usuarios": 87,
+      "transacoes": 1,
+      "receita": 63.67,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-04",
+      "canal_ga4": "Email",
+      "sessoes": 64,
+      "usuarios": 52,
+      "transacoes": 1,
+      "receita": 491.94,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-04",
+      "canal_ga4": "Organic Search",
+      "sessoes": 39,
+      "usuarios": 33,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-04",
+      "canal_ga4": "Unassigned",
+      "sessoes": 10,
+      "usuarios": 10,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-04",
+      "canal_ga4": "Referral",
+      "sessoes": 7,
+      "usuarios": 7,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-04",
+      "canal_ga4": "Organic Shopping",
+      "sessoes": 6,
+      "usuarios": 5,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-04",
+      "canal_ga4": "AI Assistant",
+      "sessoes": 1,
+      "usuarios": 1,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-05",
+      "canal_ga4": "Paid Social",
+      "sessoes": 782,
+      "usuarios": 668,
+      "transacoes": 3,
+      "receita": 961.01,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-05",
+      "canal_ga4": "Cross-network",
+      "sessoes": 513,
+      "usuarios": 455,
+      "transacoes": 6,
+      "receita": 3764.23,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-05",
+      "canal_ga4": "Direct",
+      "sessoes": 182,
+      "usuarios": 162,
+      "transacoes": 2,
+      "receita": 307.37,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-05",
+      "canal_ga4": "Organic Social",
+      "sessoes": 151,
+      "usuarios": 144,
+      "transacoes": 3,
+      "receita": 621.49,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-05",
+      "canal_ga4": "Paid Search",
+      "sessoes": 69,
+      "usuarios": 58,
+      "transacoes": 2,
+      "receita": 1363.5,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-05",
+      "canal_ga4": "Email",
+      "sessoes": 45,
+      "usuarios": 38,
+      "transacoes": 1,
+      "receita": 129.57,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-05",
+      "canal_ga4": "Organic Search",
+      "sessoes": 23,
+      "usuarios": 17,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-05",
+      "canal_ga4": "Referral",
+      "sessoes": 14,
+      "usuarios": 13,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-05",
+      "canal_ga4": "Unassigned",
+      "sessoes": 9,
+      "usuarios": 9,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-05",
+      "canal_ga4": "Organic Shopping",
+      "sessoes": 3,
+      "usuarios": 3,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-05",
+      "canal_ga4": "AI Assistant",
+      "sessoes": 1,
+      "usuarios": 1,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-06",
+      "canal_ga4": "Organic Social",
+      "sessoes": 884,
+      "usuarios": 878,
+      "transacoes": 2,
+      "receita": 368.93,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-06",
+      "canal_ga4": "Paid Social",
+      "sessoes": 680,
+      "usuarios": 588,
+      "transacoes": 7,
+      "receita": 3050.08,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-06",
+      "canal_ga4": "Cross-network",
+      "sessoes": 551,
+      "usuarios": 470,
+      "transacoes": 4,
+      "receita": 1186.33,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-06",
+      "canal_ga4": "Email",
+      "sessoes": 279,
+      "usuarios": 222,
+      "transacoes": 16,
+      "receita": 4154.51,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-06",
+      "canal_ga4": "Direct",
+      "sessoes": 221,
+      "usuarios": 175,
+      "transacoes": 4,
+      "receita": 982.78,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-06",
+      "canal_ga4": "Paid Search",
+      "sessoes": 93,
+      "usuarios": 76,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-06",
+      "canal_ga4": "Organic Search",
+      "sessoes": 55,
+      "usuarios": 51,
+      "transacoes": 2,
+      "receita": 455.42,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-06",
+      "canal_ga4": "Unassigned",
+      "sessoes": 17,
+      "usuarios": 13,
+      "transacoes": 1,
+      "receita": 275.92,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-06",
+      "canal_ga4": "Referral",
+      "sessoes": 10,
+      "usuarios": 7,
+      "transacoes": 1,
+      "receita": 175.33,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-06",
+      "canal_ga4": "AI Assistant",
+      "sessoes": 1,
+      "usuarios": 1,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-06",
+      "canal_ga4": "Organic Shopping",
+      "sessoes": 1,
+      "usuarios": 1,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-07",
+      "canal_ga4": "Paid Social",
+      "sessoes": 956,
+      "usuarios": 853,
+      "transacoes": 1,
+      "receita": 158.16,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-07",
+      "canal_ga4": "Cross-network",
+      "sessoes": 609,
+      "usuarios": 500,
+      "transacoes": 3,
+      "receita": 1089.08,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-07",
+      "canal_ga4": "Organic Social",
+      "sessoes": 498,
+      "usuarios": 472,
+      "transacoes": 1,
+      "receita": 104.83,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-07",
+      "canal_ga4": "Direct",
+      "sessoes": 284,
+      "usuarios": 222,
+      "transacoes": 2,
+      "receita": 1086.71,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-07",
+      "canal_ga4": "Email",
+      "sessoes": 216,
+      "usuarios": 167,
+      "transacoes": 1,
+      "receita": 269.77,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-07",
+      "canal_ga4": "Paid Search",
+      "sessoes": 125,
+      "usuarios": 93,
+      "transacoes": 3,
+      "receita": 463.75,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-07",
+      "canal_ga4": "Organic Search",
+      "sessoes": 77,
+      "usuarios": 63,
+      "transacoes": 1,
+      "receita": 181.97,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-07",
+      "canal_ga4": "Unassigned",
+      "sessoes": 20,
+      "usuarios": 19,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-07",
+      "canal_ga4": "Referral",
+      "sessoes": 12,
+      "usuarios": 11,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-07",
+      "canal_ga4": "Organic Shopping",
+      "sessoes": 3,
+      "usuarios": 3,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-07",
+      "canal_ga4": "AI Assistant",
+      "sessoes": 2,
+      "usuarios": 2,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-08",
+      "canal_ga4": "Paid Social",
+      "sessoes": 776,
+      "usuarios": 687,
+      "transacoes": 6,
+      "receita": 1540.49,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-08",
+      "canal_ga4": "Cross-network",
+      "sessoes": 586,
+      "usuarios": 498,
+      "transacoes": 5,
+      "receita": 2023.46,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-08",
+      "canal_ga4": "Organic Social",
+      "sessoes": 300,
+      "usuarios": 284,
+      "transacoes": 2,
+      "receita": 345.72,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-08",
+      "canal_ga4": "Direct",
+      "sessoes": 230,
+      "usuarios": 194,
+      "transacoes": 2,
+      "receita": 1052.79,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-08",
+      "canal_ga4": "Paid Search",
+      "sessoes": 127,
+      "usuarios": 96,
+      "transacoes": 2,
+      "receita": 386.9,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-08",
+      "canal_ga4": "Email",
+      "sessoes": 78,
+      "usuarios": 59,
+      "transacoes": 2,
+      "receita": 438.14,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-08",
+      "canal_ga4": "Organic Search",
+      "sessoes": 53,
+      "usuarios": 38,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-08",
+      "canal_ga4": "Unassigned",
+      "sessoes": 19,
+      "usuarios": 13,
+      "transacoes": 1,
+      "receita": 1212.26,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-08",
+      "canal_ga4": "Referral",
+      "sessoes": 12,
+      "usuarios": 11,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-08",
+      "canal_ga4": "Organic Shopping",
+      "sessoes": 3,
+      "usuarios": 2,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-08",
+      "canal_ga4": "AI Assistant",
+      "sessoes": 2,
+      "usuarios": 2,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-09",
+      "canal_ga4": "Paid Social",
+      "sessoes": 677,
+      "usuarios": 589,
+      "transacoes": 3,
+      "receita": 635.78,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-09",
+      "canal_ga4": "Cross-network",
+      "sessoes": 652,
+      "usuarios": 545,
+      "transacoes": 6,
+      "receita": 1675.35,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-09",
+      "canal_ga4": "Direct",
+      "sessoes": 243,
+      "usuarios": 198,
+      "transacoes": 1,
+      "receita": 596.61,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-09",
+      "canal_ga4": "Organic Social",
+      "sessoes": 195,
+      "usuarios": 170,
+      "transacoes": 2,
+      "receita": 468.24,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-09",
+      "canal_ga4": "Paid Search",
+      "sessoes": 115,
+      "usuarios": 90,
+      "transacoes": 2,
+      "receita": 462.7,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-09",
+      "canal_ga4": "Organic Search",
+      "sessoes": 54,
+      "usuarios": 43,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-09",
+      "canal_ga4": "Email",
+      "sessoes": 45,
+      "usuarios": 36,
+      "transacoes": 1,
+      "receita": 415.71,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-09",
+      "canal_ga4": "Unassigned",
+      "sessoes": 17,
+      "usuarios": 17,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-09",
+      "canal_ga4": "Referral",
+      "sessoes": 16,
+      "usuarios": 15,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-09",
+      "canal_ga4": "AI Assistant",
+      "sessoes": 1,
+      "usuarios": 1,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-09",
+      "canal_ga4": "Organic Shopping",
+      "sessoes": 1,
+      "usuarios": 1,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-10",
+      "canal_ga4": "Paid Social",
+      "sessoes": 614,
+      "usuarios": 540,
+      "transacoes": 3,
+      "receita": 494.6,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-10",
+      "canal_ga4": "Cross-network",
+      "sessoes": 564,
+      "usuarios": 482,
+      "transacoes": 8,
+      "receita": 2103.6,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-10",
+      "canal_ga4": "Organic Social",
+      "sessoes": 353,
+      "usuarios": 342,
+      "transacoes": 2,
+      "receita": 288.18,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-10",
+      "canal_ga4": "Direct",
+      "sessoes": 225,
+      "usuarios": 180,
+      "transacoes": 5,
+      "receita": 1246.48,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-10",
+      "canal_ga4": "Paid Search",
+      "sessoes": 96,
+      "usuarios": 76,
+      "transacoes": 2,
+      "receita": 462.14,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-10",
+      "canal_ga4": "Organic Search",
+      "sessoes": 49,
+      "usuarios": 38,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-10",
+      "canal_ga4": "Email",
+      "sessoes": 37,
+      "usuarios": 30,
+      "transacoes": 1,
+      "receita": 277.87,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-10",
+      "canal_ga4": "Unassigned",
+      "sessoes": 30,
+      "usuarios": 18,
+      "transacoes": 2,
+      "receita": 415.16,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-10",
+      "canal_ga4": "Referral",
+      "sessoes": 18,
+      "usuarios": 17,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-10",
+      "canal_ga4": "Organic Shopping",
+      "sessoes": 7,
+      "usuarios": 7,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-11",
+      "canal_ga4": "Paid Social",
+      "sessoes": 619,
+      "usuarios": 551,
+      "transacoes": 9,
+      "receita": 2101.38,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-11",
+      "canal_ga4": "Cross-network",
+      "sessoes": 601,
+      "usuarios": 516,
+      "transacoes": 4,
+      "receita": 3908.21,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-11",
+      "canal_ga4": "Direct",
+      "sessoes": 237,
+      "usuarios": 182,
+      "transacoes": 2,
+      "receita": 1241.44,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-11",
+      "canal_ga4": "Organic Social",
+      "sessoes": 220,
+      "usuarios": 210,
+      "transacoes": 3,
+      "receita": 1473.86,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-11",
+      "canal_ga4": "Paid Search",
+      "sessoes": 106,
+      "usuarios": 81,
+      "transacoes": 3,
+      "receita": 1443.58,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-11",
+      "canal_ga4": "Email",
+      "sessoes": 39,
+      "usuarios": 30,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-11",
+      "canal_ga4": "Organic Search",
+      "sessoes": 37,
+      "usuarios": 34,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-11",
+      "canal_ga4": "Referral",
+      "sessoes": 12,
+      "usuarios": 11,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-11",
+      "canal_ga4": "Unassigned",
+      "sessoes": 9,
+      "usuarios": 8,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-11",
+      "canal_ga4": "Organic Shopping",
+      "sessoes": 4,
+      "usuarios": 4,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-11",
+      "canal_ga4": "AI Assistant",
+      "sessoes": 1,
+      "usuarios": 1,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-12",
+      "canal_ga4": "Paid Social",
+      "sessoes": 1010,
+      "usuarios": 936,
+      "transacoes": 9,
+      "receita": 2206.76,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-12",
+      "canal_ga4": "Cross-network",
+      "sessoes": 577,
+      "usuarios": 495,
+      "transacoes": 5,
+      "receita": 1726.36,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-12",
+      "canal_ga4": "Direct",
+      "sessoes": 230,
+      "usuarios": 197,
+      "transacoes": 3,
+      "receita": 2412.95,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-12",
+      "canal_ga4": "Organic Social",
+      "sessoes": 228,
+      "usuarios": 215,
+      "transacoes": 3,
+      "receita": 439.03,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-12",
+      "canal_ga4": "Paid Search",
+      "sessoes": 129,
+      "usuarios": 85,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-12",
+      "canal_ga4": "Organic Search",
+      "sessoes": 35,
+      "usuarios": 33,
+      "transacoes": 1,
+      "receita": 218.97,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-12",
+      "canal_ga4": "Email",
+      "sessoes": 23,
+      "usuarios": 19,
+      "transacoes": 1,
+      "receita": 602.53,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-12",
+      "canal_ga4": "Referral",
+      "sessoes": 15,
+      "usuarios": 15,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-12",
+      "canal_ga4": "Unassigned",
+      "sessoes": 14,
+      "usuarios": 14,
+      "transacoes": 1,
+      "receita": 233.77,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-12",
+      "canal_ga4": "Organic Shopping",
+      "sessoes": 5,
+      "usuarios": 5,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-12",
+      "canal_ga4": "AI Assistant",
+      "sessoes": 3,
+      "usuarios": 3,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-13",
+      "canal_ga4": "Paid Social",
+      "sessoes": 881,
+      "usuarios": 759,
+      "transacoes": 4,
+      "receita": 1348.91,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-13",
+      "canal_ga4": "Cross-network",
+      "sessoes": 669,
+      "usuarios": 552,
+      "transacoes": 8,
+      "receita": 2478.66,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-13",
+      "canal_ga4": "Direct",
+      "sessoes": 251,
+      "usuarios": 185,
+      "transacoes": 5,
+      "receita": 2580.92,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-13",
+      "canal_ga4": "Organic Social",
+      "sessoes": 227,
+      "usuarios": 212,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-13",
+      "canal_ga4": "Paid Search",
+      "sessoes": 127,
+      "usuarios": 99,
+      "transacoes": 1,
+      "receita": 147.81,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-13",
+      "canal_ga4": "Organic Search",
+      "sessoes": 52,
+      "usuarios": 48,
+      "transacoes": 1,
+      "receita": 119.02,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-13",
+      "canal_ga4": "Email",
+      "sessoes": 39,
+      "usuarios": 28,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-13",
+      "canal_ga4": "Unassigned",
+      "sessoes": 13,
+      "usuarios": 11,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-13",
+      "canal_ga4": "Referral",
+      "sessoes": 12,
+      "usuarios": 10,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-13",
+      "canal_ga4": "Organic Shopping",
+      "sessoes": 7,
+      "usuarios": 6,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-13",
+      "canal_ga4": "AI Assistant",
+      "sessoes": 1,
+      "usuarios": 1,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-14",
+      "canal_ga4": "Paid Social",
+      "sessoes": 806,
+      "usuarios": 731,
+      "transacoes": 5,
+      "receita": 1362.12,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-14",
+      "canal_ga4": "Cross-network",
+      "sessoes": 612,
+      "usuarios": 530,
+      "transacoes": 5,
+      "receita": 900.24,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-14",
+      "canal_ga4": "Organic Social",
+      "sessoes": 354,
+      "usuarios": 326,
+      "transacoes": 3,
+      "receita": 1721.89,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-14",
+      "canal_ga4": "Direct",
+      "sessoes": 262,
+      "usuarios": 201,
+      "transacoes": 1,
+      "receita": 719.89,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-14",
+      "canal_ga4": "Paid Search",
+      "sessoes": 133,
+      "usuarios": 101,
+      "transacoes": 2,
+      "receita": 917.52,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-14",
+      "canal_ga4": "Organic Search",
+      "sessoes": 55,
+      "usuarios": 41,
+      "transacoes": 1,
+      "receita": 167.49,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-14",
+      "canal_ga4": "Email",
+      "sessoes": 21,
+      "usuarios": 15,
+      "transacoes": 1,
+      "receita": 35.36,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-14",
+      "canal_ga4": "Referral",
+      "sessoes": 21,
+      "usuarios": 16,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-14",
+      "canal_ga4": "Unassigned",
+      "sessoes": 16,
+      "usuarios": 16,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-14",
+      "canal_ga4": "AI Assistant",
+      "sessoes": 7,
+      "usuarios": 6,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-14",
+      "canal_ga4": "Organic Shopping",
+      "sessoes": 6,
+      "usuarios": 6,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-15",
+      "canal_ga4": "Paid Social",
+      "sessoes": 674,
+      "usuarios": 607,
+      "transacoes": 2,
+      "receita": 795.37,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-15",
+      "canal_ga4": "Cross-network",
+      "sessoes": 511,
+      "usuarios": 404,
+      "transacoes": 6,
+      "receita": 2284.54,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-15",
+      "canal_ga4": "Direct",
+      "sessoes": 268,
+      "usuarios": 204,
+      "transacoes": 5,
+      "receita": 2139.65,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-15",
+      "canal_ga4": "Organic Social",
+      "sessoes": 267,
+      "usuarios": 262,
+      "transacoes": 2,
+      "receita": 396.82,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-15",
+      "canal_ga4": "Paid Search",
+      "sessoes": 128,
+      "usuarios": 101,
+      "transacoes": 1,
+      "receita": 254.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-15",
+      "canal_ga4": "Organic Search",
+      "sessoes": 49,
+      "usuarios": 41,
+      "transacoes": 1,
+      "receita": 581.94,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-15",
+      "canal_ga4": "Email",
+      "sessoes": 21,
+      "usuarios": 13,
+      "transacoes": 1,
+      "receita": 375.76,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-15",
+      "canal_ga4": "Unassigned",
+      "sessoes": 16,
+      "usuarios": 13,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-15",
+      "canal_ga4": "Referral",
+      "sessoes": 9,
+      "usuarios": 9,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-15",
+      "canal_ga4": "Organic Shopping",
+      "sessoes": 4,
+      "usuarios": 4,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-15",
+      "canal_ga4": "AI Assistant",
+      "sessoes": 1,
+      "usuarios": 1,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-16",
+      "canal_ga4": "Paid Social",
+      "sessoes": 646,
+      "usuarios": 568,
+      "transacoes": 3,
+      "receita": 1061.86,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-16",
+      "canal_ga4": "Cross-network",
+      "sessoes": 352,
+      "usuarios": 288,
+      "transacoes": 3,
+      "receita": 688.38,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-16",
+      "canal_ga4": "Organic Social",
+      "sessoes": 245,
+      "usuarios": 239,
+      "transacoes": 2,
+      "receita": 337.44,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-16",
+      "canal_ga4": "Direct",
+      "sessoes": 212,
+      "usuarios": 171,
+      "transacoes": 2,
+      "receita": 376.15,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-16",
+      "canal_ga4": "Unassigned",
+      "sessoes": 133,
+      "usuarios": 131,
+      "transacoes": 2,
+      "receita": 973.93,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-16",
+      "canal_ga4": "Paid Search",
+      "sessoes": 112,
+      "usuarios": 91,
+      "transacoes": 2,
+      "receita": 395.74,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-16",
+      "canal_ga4": "Organic Search",
+      "sessoes": 36,
+      "usuarios": 33,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-16",
+      "canal_ga4": "Organic Shopping",
+      "sessoes": 17,
+      "usuarios": 16,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-16",
+      "canal_ga4": "Email",
+      "sessoes": 15,
+      "usuarios": 14,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-16",
+      "canal_ga4": "Referral",
+      "sessoes": 6,
+      "usuarios": 6,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-17",
+      "canal_ga4": "Paid Social",
+      "sessoes": 719,
+      "usuarios": 620,
+      "transacoes": 6,
+      "receita": 1120.67,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-17",
+      "canal_ga4": "Organic Social",
+      "sessoes": 603,
+      "usuarios": 590,
+      "transacoes": 2,
+      "receita": 387.21,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-17",
+      "canal_ga4": "Cross-network",
+      "sessoes": 541,
+      "usuarios": 469,
+      "transacoes": 4,
+      "receita": 816.3,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-17",
+      "canal_ga4": "Direct",
+      "sessoes": 224,
+      "usuarios": 183,
+      "transacoes": 2,
+      "receita": 2199.04,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-17",
+      "canal_ga4": "Paid Search",
+      "sessoes": 133,
+      "usuarios": 104,
+      "transacoes": 2,
+      "receita": 295.57,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-17",
+      "canal_ga4": "Organic Search",
+      "sessoes": 56,
+      "usuarios": 45,
+      "transacoes": 1,
+      "receita": 321.25,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-17",
+      "canal_ga4": "Email",
+      "sessoes": 17,
+      "usuarios": 14,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-17",
+      "canal_ga4": "Unassigned",
+      "sessoes": 12,
+      "usuarios": 10,
+      "transacoes": 1,
+      "receita": 101.97,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-17",
+      "canal_ga4": "Referral",
+      "sessoes": 9,
+      "usuarios": 7,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-17",
+      "canal_ga4": "Organic Shopping",
+      "sessoes": 8,
+      "usuarios": 8,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-18",
+      "canal_ga4": "Paid Social",
+      "sessoes": 744,
+      "usuarios": 680,
+      "transacoes": 2,
+      "receita": 604.49,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-18",
+      "canal_ga4": "Cross-network",
+      "sessoes": 467,
+      "usuarios": 407,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-18",
+      "canal_ga4": "Direct",
+      "sessoes": 212,
+      "usuarios": 181,
+      "transacoes": 1,
+      "receita": 919.8,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-18",
+      "canal_ga4": "Organic Social",
+      "sessoes": 169,
+      "usuarios": 164,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-18",
+      "canal_ga4": "Paid Search",
+      "sessoes": 118,
+      "usuarios": 94,
+      "transacoes": 2,
+      "receita": 389.49,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-18",
+      "canal_ga4": "Organic Search",
+      "sessoes": 27,
+      "usuarios": 25,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-18",
+      "canal_ga4": "Email",
+      "sessoes": 25,
+      "usuarios": 17,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-18",
+      "canal_ga4": "Unassigned",
+      "sessoes": 12,
+      "usuarios": 7,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-18",
+      "canal_ga4": "Referral",
+      "sessoes": 10,
+      "usuarios": 10,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-18",
+      "canal_ga4": "Organic Shopping",
+      "sessoes": 7,
+      "usuarios": 6,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-18",
+      "canal_ga4": "AI Assistant",
+      "sessoes": 2,
+      "usuarios": 2,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-19",
+      "canal_ga4": "Paid Social",
+      "sessoes": 937,
+      "usuarios": 849,
+      "transacoes": 6,
+      "receita": 1657.63,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-19",
+      "canal_ga4": "Cross-network",
+      "sessoes": 515,
+      "usuarios": 450,
+      "transacoes": 5,
+      "receita": 2140.79,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-19",
+      "canal_ga4": "Organic Social",
+      "sessoes": 244,
+      "usuarios": 240,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-19",
+      "canal_ga4": "Direct",
+      "sessoes": 206,
+      "usuarios": 181,
+      "transacoes": 1,
+      "receita": 335.94,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-19",
+      "canal_ga4": "Paid Search",
+      "sessoes": 93,
+      "usuarios": 72,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-19",
+      "canal_ga4": "Organic Search",
+      "sessoes": 26,
+      "usuarios": 22,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-19",
+      "canal_ga4": "Referral",
+      "sessoes": 14,
+      "usuarios": 14,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-19",
+      "canal_ga4": "Unassigned",
+      "sessoes": 13,
+      "usuarios": 11,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-19",
+      "canal_ga4": "Email",
+      "sessoes": 8,
+      "usuarios": 7,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-19",
+      "canal_ga4": "Organic Shopping",
+      "sessoes": 6,
+      "usuarios": 5,
+      "transacoes": 1,
+      "receita": 374.94,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-19",
+      "canal_ga4": "AI Assistant",
+      "sessoes": 1,
+      "usuarios": 1,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-20",
+      "canal_ga4": "Organic Social",
+      "sessoes": 3243,
+      "usuarios": 3258,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-20",
+      "canal_ga4": "Paid Social",
+      "sessoes": 846,
+      "usuarios": 770,
+      "transacoes": 2,
+      "receita": 1041.46,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-20",
+      "canal_ga4": "Cross-network",
+      "sessoes": 460,
+      "usuarios": 397,
+      "transacoes": 1,
+      "receita": 679.9,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-20",
+      "canal_ga4": "Direct",
+      "sessoes": 221,
+      "usuarios": 169,
+      "transacoes": 1,
+      "receita": 83.23,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-20",
+      "canal_ga4": "Paid Search",
+      "sessoes": 169,
+      "usuarios": 126,
+      "transacoes": 1,
+      "receita": 1808.74,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-20",
+      "canal_ga4": "Organic Search",
+      "sessoes": 45,
+      "usuarios": 37,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-20",
+      "canal_ga4": "Email",
+      "sessoes": 20,
+      "usuarios": 12,
+      "transacoes": 1,
+      "receita": 37.42,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-20",
+      "canal_ga4": "Unassigned",
+      "sessoes": 19,
+      "usuarios": 17,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-20",
+      "canal_ga4": "Referral",
+      "sessoes": 12,
+      "usuarios": 10,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-20",
+      "canal_ga4": "Organic Shopping",
+      "sessoes": 9,
+      "usuarios": 6,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-20",
+      "canal_ga4": "AI Assistant",
+      "sessoes": 1,
+      "usuarios": 1,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-21",
+      "canal_ga4": "Paid Social",
+      "sessoes": 729,
+      "usuarios": 662,
+      "transacoes": 7,
+      "receita": 2503.44,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-21",
+      "canal_ga4": "Cross-network",
+      "sessoes": 530,
+      "usuarios": 460,
+      "transacoes": 8,
+      "receita": 2127.11,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-21",
+      "canal_ga4": "Organic Social",
+      "sessoes": 474,
+      "usuarios": 467,
+      "transacoes": 1,
+      "receita": 176.08,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-21",
+      "canal_ga4": "Direct",
+      "sessoes": 237,
+      "usuarios": 197,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-21",
+      "canal_ga4": "Email",
+      "sessoes": 204,
+      "usuarios": 173,
+      "transacoes": 2,
+      "receita": 1423.04,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-21",
+      "canal_ga4": "Paid Search",
+      "sessoes": 149,
+      "usuarios": 109,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-21",
+      "canal_ga4": "Organic Search",
+      "sessoes": 54,
+      "usuarios": 46,
+      "transacoes": 1,
+      "receita": 745.02,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-21",
+      "canal_ga4": "Unassigned",
+      "sessoes": 26,
+      "usuarios": 23,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-21",
+      "canal_ga4": "Referral",
+      "sessoes": 11,
+      "usuarios": 6,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-21",
+      "canal_ga4": "Organic Shopping",
+      "sessoes": 6,
+      "usuarios": 6,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-21",
+      "canal_ga4": "AI Assistant",
+      "sessoes": 2,
+      "usuarios": 2,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-22",
+      "canal_ga4": "Paid Social",
+      "sessoes": 636,
+      "usuarios": 566,
+      "transacoes": 6,
+      "receita": 2543.22,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-22",
+      "canal_ga4": "Cross-network",
+      "sessoes": 579,
+      "usuarios": 493,
+      "transacoes": 7,
+      "receita": 1040.57,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-22",
+      "canal_ga4": "Organic Social",
+      "sessoes": 270,
+      "usuarios": 256,
+      "transacoes": 3,
+      "receita": 971.59,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-22",
+      "canal_ga4": "Direct",
+      "sessoes": 235,
+      "usuarios": 195,
+      "transacoes": 6,
+      "receita": 2801.46,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-22",
+      "canal_ga4": "Email",
+      "sessoes": 149,
+      "usuarios": 119,
+      "transacoes": 1,
+      "receita": 100.01,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-22",
+      "canal_ga4": "Paid Search",
+      "sessoes": 118,
+      "usuarios": 93,
+      "transacoes": 1,
+      "receita": 164.13,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-22",
+      "canal_ga4": "Organic Search",
+      "sessoes": 47,
+      "usuarios": 38,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-22",
+      "canal_ga4": "Unassigned",
+      "sessoes": 20,
+      "usuarios": 12,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-22",
+      "canal_ga4": "Referral",
+      "sessoes": 12,
+      "usuarios": 8,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-22",
+      "canal_ga4": "Organic Shopping",
+      "sessoes": 4,
+      "usuarios": 4,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-23",
+      "canal_ga4": "Paid Social",
+      "sessoes": 684,
+      "usuarios": 617,
+      "transacoes": 5,
+      "receita": 2152.81,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-23",
+      "canal_ga4": "Organic Social",
+      "sessoes": 654,
+      "usuarios": 646,
+      "transacoes": 2,
+      "receita": 1667.68,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-23",
+      "canal_ga4": "Cross-network",
+      "sessoes": 521,
+      "usuarios": 439,
+      "transacoes": 11,
+      "receita": 3773.01,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-23",
+      "canal_ga4": "Direct",
+      "sessoes": 233,
+      "usuarios": 199,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-23",
+      "canal_ga4": "Paid Search",
+      "sessoes": 113,
+      "usuarios": 77,
+      "transacoes": 2,
+      "receita": 210.66,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-23",
+      "canal_ga4": "Organic Search",
+      "sessoes": 58,
+      "usuarios": 49,
+      "transacoes": 3,
+      "receita": 636.09,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-23",
+      "canal_ga4": "Email",
+      "sessoes": 44,
+      "usuarios": 33,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-23",
+      "canal_ga4": "Referral",
+      "sessoes": 23,
+      "usuarios": 14,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-23",
+      "canal_ga4": "Unassigned",
+      "sessoes": 16,
+      "usuarios": 11,
+      "transacoes": 1,
+      "receita": 218.97,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-23",
+      "canal_ga4": "AI Assistant",
+      "sessoes": 3,
+      "usuarios": 3,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-23",
+      "canal_ga4": "Organic Shopping",
+      "sessoes": 3,
+      "usuarios": 3,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-24",
+      "canal_ga4": "Paid Social",
+      "sessoes": 691,
+      "usuarios": 615,
+      "transacoes": 2,
+      "receita": 1940.73,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-24",
+      "canal_ga4": "Cross-network",
+      "sessoes": 530,
+      "usuarios": 455,
+      "transacoes": 4,
+      "receita": 1042.5,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-24",
+      "canal_ga4": "Organic Social",
+      "sessoes": 307,
+      "usuarios": 294,
+      "transacoes": 3,
+      "receita": 617.88,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-24",
+      "canal_ga4": "Direct",
+      "sessoes": 248,
+      "usuarios": 202,
+      "transacoes": 2,
+      "receita": 295.78,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-24",
+      "canal_ga4": "Paid Search",
+      "sessoes": 90,
+      "usuarios": 73,
+      "transacoes": 2,
+      "receita": 1585.24,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-24",
+      "canal_ga4": "Organic Search",
+      "sessoes": 55,
+      "usuarios": 41,
+      "transacoes": 2,
+      "receita": 3525.29,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-24",
+      "canal_ga4": "Referral",
+      "sessoes": 29,
+      "usuarios": 18,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-24",
+      "canal_ga4": "Unassigned",
+      "sessoes": 26,
+      "usuarios": 14,
+      "transacoes": 2,
+      "receita": 378.11,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-24",
+      "canal_ga4": "Email",
+      "sessoes": 20,
+      "usuarios": 18,
+      "transacoes": 1,
+      "receita": 254.97,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-24",
+      "canal_ga4": "Organic Shopping",
+      "sessoes": 3,
+      "usuarios": 3,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-25",
+      "canal_ga4": "Paid Social",
+      "sessoes": 661,
+      "usuarios": 595,
+      "transacoes": 2,
+      "receita": 764.11,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-25",
+      "canal_ga4": "Cross-network",
+      "sessoes": 548,
+      "usuarios": 473,
+      "transacoes": 3,
+      "receita": 601.56,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-25",
+      "canal_ga4": "Direct",
+      "sessoes": 189,
+      "usuarios": 162,
+      "transacoes": 1,
+      "receita": 1319.79,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-25",
+      "canal_ga4": "Organic Social",
+      "sessoes": 177,
+      "usuarios": 166,
+      "transacoes": 2,
+      "receita": 290.62,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-25",
+      "canal_ga4": "Paid Search",
+      "sessoes": 93,
+      "usuarios": 73,
+      "transacoes": 2,
+      "receita": 3518.52,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-25",
+      "canal_ga4": "Organic Search",
+      "sessoes": 19,
+      "usuarios": 17,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-25",
+      "canal_ga4": "Unassigned",
+      "sessoes": 18,
+      "usuarios": 8,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-25",
+      "canal_ga4": "Referral",
+      "sessoes": 13,
+      "usuarios": 12,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-25",
+      "canal_ga4": "Email",
+      "sessoes": 8,
+      "usuarios": 8,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-25",
+      "canal_ga4": "Organic Shopping",
+      "sessoes": 4,
+      "usuarios": 4,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-25",
+      "canal_ga4": "AI Assistant",
+      "sessoes": 3,
+      "usuarios": 3,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-26",
+      "canal_ga4": "Paid Social",
+      "sessoes": 1016,
+      "usuarios": 902,
+      "transacoes": 8,
+      "receita": 3483.86,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-26",
+      "canal_ga4": "Cross-network",
+      "sessoes": 466,
+      "usuarios": 406,
+      "transacoes": 1,
+      "receita": 186.12,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-26",
+      "canal_ga4": "Direct",
+      "sessoes": 211,
+      "usuarios": 182,
+      "transacoes": 2,
+      "receita": 786.54,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-26",
+      "canal_ga4": "Organic Social",
+      "sessoes": 198,
+      "usuarios": 187,
+      "transacoes": 3,
+      "receita": 737.58,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-26",
+      "canal_ga4": "Paid Search",
+      "sessoes": 108,
+      "usuarios": 88,
+      "transacoes": 1,
+      "receita": 643.9,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-26",
+      "canal_ga4": "Organic Search",
+      "sessoes": 27,
+      "usuarios": 24,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-26",
+      "canal_ga4": "Unassigned",
+      "sessoes": 20,
+      "usuarios": 15,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-26",
+      "canal_ga4": "Email",
+      "sessoes": 19,
+      "usuarios": 16,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-26",
+      "canal_ga4": "Referral",
+      "sessoes": 17,
+      "usuarios": 17,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-26",
+      "canal_ga4": "Organic Shopping",
+      "sessoes": 8,
+      "usuarios": 7,
+      "transacoes": 1,
+      "receita": 148.47,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-26",
+      "canal_ga4": "AI Assistant",
+      "sessoes": 2,
+      "usuarios": 2,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-27",
+      "canal_ga4": "Paid Social",
+      "sessoes": 819,
+      "usuarios": 724,
+      "transacoes": 3,
+      "receita": 797.29,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-27",
+      "canal_ga4": "Cross-network",
+      "sessoes": 553,
+      "usuarios": 474,
+      "transacoes": 4,
+      "receita": 809.7,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-27",
+      "canal_ga4": "Organic Social",
+      "sessoes": 220,
+      "usuarios": 214,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-27",
+      "canal_ga4": "Direct",
+      "sessoes": 177,
+      "usuarios": 161,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-27",
+      "canal_ga4": "Paid Search",
+      "sessoes": 145,
+      "usuarios": 122,
+      "transacoes": 5,
+      "receita": 1323.07,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-27",
+      "canal_ga4": "Organic Search",
+      "sessoes": 64,
+      "usuarios": 51,
+      "transacoes": 1,
+      "receita": 227.97,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-27",
+      "canal_ga4": "Referral",
+      "sessoes": 27,
+      "usuarios": 18,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-27",
+      "canal_ga4": "Email",
+      "sessoes": 15,
+      "usuarios": 13,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-27",
+      "canal_ga4": "Unassigned",
+      "sessoes": 14,
+      "usuarios": 13,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-27",
+      "canal_ga4": "Organic Shopping",
+      "sessoes": 6,
+      "usuarios": 5,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-27",
+      "canal_ga4": "AI Assistant",
+      "sessoes": 1,
+      "usuarios": 1,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-28",
+      "canal_ga4": "Paid Social",
+      "sessoes": 983,
+      "usuarios": 875,
+      "transacoes": 5,
+      "receita": 1052.98,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-28",
+      "canal_ga4": "Organic Social",
+      "sessoes": 617,
+      "usuarios": 578,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-28",
+      "canal_ga4": "Cross-network",
+      "sessoes": 550,
+      "usuarios": 462,
+      "transacoes": 4,
+      "receita": 720.76,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-28",
+      "canal_ga4": "Direct",
+      "sessoes": 251,
+      "usuarios": 221,
+      "transacoes": 7,
+      "receita": 857.27,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-28",
+      "canal_ga4": "Paid Search",
+      "sessoes": 171,
+      "usuarios": 128,
+      "transacoes": 1,
+      "receita": 494.6,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-28",
+      "canal_ga4": "Organic Search",
+      "sessoes": 69,
+      "usuarios": 58,
+      "transacoes": 1,
+      "receita": 234.87,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-28",
+      "canal_ga4": "Referral",
+      "sessoes": 23,
+      "usuarios": 17,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-28",
+      "canal_ga4": "Email",
+      "sessoes": 12,
+      "usuarios": 10,
+      "transacoes": 1,
+      "receita": 221.37,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-28",
+      "canal_ga4": "Unassigned",
+      "sessoes": 6,
+      "usuarios": 6,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-28",
+      "canal_ga4": "AI Assistant",
+      "sessoes": 1,
+      "usuarios": 1,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-28",
+      "canal_ga4": "Organic Shopping",
+      "sessoes": 1,
+      "usuarios": 1,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-29",
+      "canal_ga4": "Paid Social",
+      "sessoes": 847,
+      "usuarios": 728,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-29",
+      "canal_ga4": "Organic Social",
+      "sessoes": 566,
+      "usuarios": 527,
+      "transacoes": 1,
+      "receita": 656.94,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-29",
+      "canal_ga4": "Cross-network",
+      "sessoes": 549,
+      "usuarios": 453,
+      "transacoes": 4,
+      "receita": 1249.31,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-29",
+      "canal_ga4": "Direct",
+      "sessoes": 262,
+      "usuarios": 209,
+      "transacoes": 3,
+      "receita": 1967.9,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-29",
+      "canal_ga4": "Paid Search",
+      "sessoes": 156,
+      "usuarios": 123,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-29",
+      "canal_ga4": "Email",
+      "sessoes": 123,
+      "usuarios": 107,
+      "transacoes": 2,
+      "receita": 1542.35,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-29",
+      "canal_ga4": "Organic Search",
+      "sessoes": 62,
+      "usuarios": 51,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-29",
+      "canal_ga4": "Referral",
+      "sessoes": 36,
+      "usuarios": 31,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-29",
+      "canal_ga4": "Unassigned",
+      "sessoes": 32,
+      "usuarios": 29,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-29",
+      "canal_ga4": "Organic Shopping",
+      "sessoes": 7,
+      "usuarios": 6,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-29",
+      "canal_ga4": "AI Assistant",
+      "sessoes": 3,
+      "usuarios": 1,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-30",
+      "canal_ga4": "Paid Social",
+      "sessoes": 741,
+      "usuarios": 655,
+      "transacoes": 4,
+      "receita": 696.07,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-30",
+      "canal_ga4": "Organic Social",
+      "sessoes": 557,
+      "usuarios": 500,
+      "transacoes": 2,
+      "receita": 962.79,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-30",
+      "canal_ga4": "Cross-network",
+      "sessoes": 450,
+      "usuarios": 384,
+      "transacoes": 4,
+      "receita": 959.42,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-30",
+      "canal_ga4": "Direct",
+      "sessoes": 266,
+      "usuarios": 202,
+      "transacoes": 2,
+      "receita": 1005.75,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-30",
+      "canal_ga4": "Paid Search",
+      "sessoes": 154,
+      "usuarios": 120,
+      "transacoes": 2,
+      "receita": 860.85,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-30",
+      "canal_ga4": "Email",
+      "sessoes": 125,
+      "usuarios": 103,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-30",
+      "canal_ga4": "Organic Search",
+      "sessoes": 67,
+      "usuarios": 59,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-30",
+      "canal_ga4": "Referral",
+      "sessoes": 19,
+      "usuarios": 15,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-30",
+      "canal_ga4": "Unassigned",
+      "sessoes": 19,
+      "usuarios": 14,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-30",
+      "canal_ga4": "Organic Shopping",
+      "sessoes": 7,
+      "usuarios": 7,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-31",
+      "canal_ga4": "Paid Social",
+      "sessoes": 819,
+      "usuarios": 721,
+      "transacoes": 11,
+      "receita": 3524.83,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-31",
+      "canal_ga4": "Organic Social",
+      "sessoes": 440,
+      "usuarios": 403,
+      "transacoes": 3,
+      "receita": 887.59,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-31",
+      "canal_ga4": "Cross-network",
+      "sessoes": 415,
+      "usuarios": 340,
+      "transacoes": 4,
+      "receita": 902.55,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-31",
+      "canal_ga4": "Direct",
+      "sessoes": 263,
+      "usuarios": 209,
+      "transacoes": 2,
+      "receita": 537.24,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-31",
+      "canal_ga4": "Paid Search",
+      "sessoes": 135,
+      "usuarios": 106,
+      "transacoes": 4,
+      "receita": 1461.9,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-31",
+      "canal_ga4": "Email",
+      "sessoes": 86,
+      "usuarios": 57,
+      "transacoes": 1,
+      "receita": 114.72,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-31",
+      "canal_ga4": "Organic Search",
+      "sessoes": 56,
+      "usuarios": 47,
+      "transacoes": 1,
+      "receita": 121.47,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-31",
+      "canal_ga4": "Referral",
+      "sessoes": 21,
+      "usuarios": 15,
+      "transacoes": 1,
+      "receita": 448.12,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-31",
+      "canal_ga4": "Unassigned",
+      "sessoes": 19,
+      "usuarios": 16,
+      "transacoes": 1,
+      "receita": 210.57,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-31",
+      "canal_ga4": "Organic Shopping",
+      "sessoes": 6,
+      "usuarios": 6,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-07-31",
+      "canal_ga4": "AI Assistant",
+      "sessoes": 1,
+      "usuarios": 1,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-08-01",
+      "canal_ga4": "Unassigned",
+      "sessoes": 1521,
+      "usuarios": 1362,
+      "transacoes": 6,
+      "receita": 1505.92,
+      "loja": 1
+    },
+    {
+      "d": "2026-08-01",
+      "canal_ga4": "Paid Social",
+      "sessoes": 856,
+      "usuarios": 769,
+      "transacoes": 3,
+      "receita": 561.33,
+      "loja": 1
+    },
+    {
+      "d": "2026-08-01",
+      "canal_ga4": "Cross-network",
+      "sessoes": 471,
+      "usuarios": 408,
+      "transacoes": 1,
+      "receita": 644.88,
+      "loja": 1
+    },
+    {
+      "d": "2026-08-01",
+      "canal_ga4": "Organic Social",
+      "sessoes": 407,
+      "usuarios": 389,
+      "transacoes": 1,
+      "receita": 197.97,
+      "loja": 1
+    },
+    {
+      "d": "2026-08-01",
+      "canal_ga4": "Direct",
+      "sessoes": 173,
+      "usuarios": 147,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-08-01",
+      "canal_ga4": "Paid Search",
+      "sessoes": 92,
+      "usuarios": 77,
+      "transacoes": 2,
+      "receita": 504.52,
+      "loja": 1
+    },
+    {
+      "d": "2026-08-01",
+      "canal_ga4": "Organic Search",
+      "sessoes": 33,
+      "usuarios": 30,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-08-01",
+      "canal_ga4": "Email",
+      "sessoes": 29,
+      "usuarios": 24,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-08-01",
+      "canal_ga4": "Referral",
+      "sessoes": 27,
+      "usuarios": 25,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-08-01",
+      "canal_ga4": "Organic Shopping",
+      "sessoes": 2,
+      "usuarios": 2,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-08-02",
+      "canal_ga4": "Unassigned",
+      "sessoes": 507,
+      "usuarios": 503,
+      "transacoes": 3,
+      "receita": 606.63,
+      "loja": 1
+    },
+    {
+      "d": "2026-08-02",
+      "canal_ga4": "Paid Social",
+      "sessoes": 301,
+      "usuarios": 285,
+      "transacoes": 2,
+      "receita": 584.42,
+      "loja": 1
+    },
+    {
+      "d": "2026-08-02",
+      "canal_ga4": "Organic Social",
+      "sessoes": 143,
+      "usuarios": 141,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-08-02",
+      "canal_ga4": "Cross-network",
+      "sessoes": 81,
+      "usuarios": 79,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-08-02",
+      "canal_ga4": "Direct",
+      "sessoes": 42,
+      "usuarios": 41,
+      "transacoes": 1,
+      "receita": 149.97,
+      "loja": 1
+    },
+    {
+      "d": "2026-08-02",
+      "canal_ga4": "Paid Search",
+      "sessoes": 9,
+      "usuarios": 8,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-08-02",
+      "canal_ga4": "Organic Search",
+      "sessoes": 8,
+      "usuarios": 7,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-08-02",
+      "canal_ga4": "Email",
+      "sessoes": 6,
+      "usuarios": 6,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    },
+    {
+      "d": "2026-08-02",
+      "canal_ga4": "Referral",
+      "sessoes": 2,
+      "usuarios": 2,
+      "transacoes": 0,
+      "receita": 0.0,
+      "loja": 1
+    }
   ]
 }
