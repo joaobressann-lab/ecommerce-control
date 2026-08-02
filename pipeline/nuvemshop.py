@@ -247,35 +247,34 @@ CANAIS_SITE = frozenset({CANAL_LOJA_VIRTUAL, CANAL_MOBILE})
 
 
 def classificar_canal(raw_order: dict[str, Any]) -> str:
-    """Classifica o canal de venda de um pedido.
+    """Classifica o canal de venda pelo campo `storefront` (auditado em 400 pedidos reais).
 
-    ATENCAO (a auditar na F1 com payload real, CLAUDE.md secao 9): a API de /orders
-    nao expoe a coluna "Canal" do export CSV de forma garantida. Esta heuristica usa
-    os sinais disponiveis no payload e deve ser calibrada quando virem os primeiros
-    pedidos reais das duas lojas. Ate la, o default assume site.
+    Distribuicao observada na Loja 1:
+      storefront=store  -> Loja virtual (web desktop)
+      storefront=mobile -> Mobile
+      storefront=api    -> integracao externa (ANYMARKET), sempre com app_id e
+                           gateway=not-provided; nao entra no calculo de site.
+    A invariante da secao 3 (site = Loja virtual + Mobile) fica satisfeita ao aceitar
+    apenas store/mobile. Qualquer storefront diferente NAO e tratado como site.
     """
-    # Pedido criado manualmente no admin: sem gateway de pagamento online.
-    gateway = str(raw_order.get("gateway") or "").lower()
-    if gateway in {"offline", "manual", ""} and raw_order.get("gateway_name") is None:
-        # Sinal fraco; mantemos como manual so quando explicito.
-        if raw_order.get("gateway") in {"offline", "manual"}:
-            return CANAL_MANUAL
-
-    # Integracao de marketplace (ANYMARKET) normalmente carrega app_id de integracao.
-    app_id = raw_order.get("app_id")
-    if app_id:
-        return CANAL_ANYMARKET
-
-    # Loja virtual x Mobile: quando a API expuser device/channel, refinar aqui.
-    canal_bruto = str(raw_order.get("channel") or raw_order.get("sales_channel") or "").lower()
-    if "mobile" in canal_bruto or "app" in canal_bruto:
-        return CANAL_MOBILE
-    if canal_bruto in {"web", "store", "form"} or canal_bruto == "":
+    storefront = str(raw_order.get("storefront") or "").lower()
+    if storefront == "store":
         return CANAL_LOJA_VIRTUAL
+    if storefront == "mobile":
+        return CANAL_MOBILE
+    if storefront == "api":
+        # Integracao externa. Distingue pedido manual (admin) de marketplace quando possivel.
+        origem = str(raw_order.get("order_origin") or "").lower()
+        if "manual" in origem or "admin" in origem:
+            return CANAL_MANUAL
+        return CANAL_ANYMARKET
     return CANAL_OUTRO
 
 
 def _pedido_pago(raw_order: dict[str, Any]) -> bool:
+    """Pedido conta como venda: pago e nao cancelado."""
+    if str(raw_order.get("status") or "").lower() == "cancelled":
+        return False
     return str(raw_order.get("payment_status") or "").lower() == "paid"
 
 

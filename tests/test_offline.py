@@ -57,17 +57,32 @@ PRODUTO_NAO_PUBLICADO = {
 PEDIDO = {
     "id": 500,
     "payment_status": "paid",
+    "status": "open",
+    "storefront": "store",           # Loja virtual (web)
     "created_at": ONTEM_ISO,
-    "gateway": "mercadopago",
+    "gateway": "nuvem-pago",
     "products": [
         {"variant_id": 12, "sku": "7890000000025", "name": {"pt": "Vestido Midi - CSV1234"},
          "quantity": 2, "price": "299.90"},
     ],
 }
 
+PEDIDO_MOBILE = {
+    "id": 502, "payment_status": "paid", "status": "open", "storefront": "mobile",
+    "created_at": ONTEM_ISO,
+    "products": [{"variant_id": 11, "sku": "7890000000018", "quantity": 1, "price": "299.90"}],
+}
+
 PEDIDO_ANYMARKET = {
-    "id": 501, "payment_status": "paid", "created_at": ONTEM_ISO, "app_id": 999,
+    "id": 501, "payment_status": "paid", "status": "open", "storefront": "api", "app_id": 1382,
+    "gateway": "not-provided", "created_at": ONTEM_ISO,
     "products": [{"variant_id": 12, "sku": "7890000000025", "quantity": 5, "price": "310.0"}],
+}
+
+PEDIDO_CANCELADO = {
+    "id": 503, "payment_status": "paid", "status": "cancelled", "storefront": "store",
+    "created_at": ONTEM_ISO,
+    "products": [{"variant_id": 12, "sku": "7890000000025", "quantity": 3, "price": "299.90"}],
 }
 
 
@@ -110,8 +125,15 @@ def test_pedido_e_canal() -> None:
     check(l.cor == "Preto" and l.tamanho == "M", f"cor/tam errados: {l.cor}/{l.tamanho}")
     check(l.canal == "Loja virtual", f"canal esperado Loja virtual, veio {l.canal}")
 
+    mob = parse_order_lines(PEDIDO_MOBILE, mapa, loja=1)
+    check(mob[0].canal == "Mobile", f"canal esperado Mobile, veio {mob[0].canal}")
+
     any_lines = parse_order_lines(PEDIDO_ANYMARKET, mapa, loja=1)
     check(any_lines[0].canal == "ANYMARKET", f"canal esperado ANYMARKET, veio {any_lines[0].canal}")
+
+    # Pedido cancelado (mesmo pago) nao gera linha de venda.
+    canc = parse_order_lines(PEDIDO_CANCELADO, mapa, loja=1)
+    check(canc == [], f"pedido cancelado nao deveria gerar linha, veio {len(canc)}")
 
 
 def test_build_produto_estrela() -> None:
