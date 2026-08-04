@@ -21,3 +21,6 @@ scratch/
 *.log
 .DS_Store
 Thumbs.db
+
+# Copia local do build Netlify (cp -r data dashboard/data)
+dashboard/data/

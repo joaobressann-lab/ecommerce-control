@@ -13,14 +13,16 @@ Dashboard integrado multi-marca: Nuvemshop + GA4 + Google Ads + Meta Ads, com ca
                                     |
               data/produtos.json · data/diario.json · data/insights.json
                                     |
-                  commit automático no repo (joaobressann-lab)
+                  commit automático no repo (joaobressann-lab, PRIVADO)
                                     |
-        dashboard HTML standalone (Netlify) lê de raw.githubusercontent
+      Netlify rebuilda no push e serve dashboard + data/ juntos (ecommercecontrol.netlify.app)
 ```
 
 Princípios:
 - Chave universal de cruzamento: **referência do produto (ref)**. Auditar item_id no GA4 e retailer_id nos catálogos antes de tudo (tarefa F1.1).
-- Dashboard lê SEMPRE de raw.githubusercontent, nunca jsDelivr (cache de horas no @main).
+- Repo PRIVADO (dados comerciais): o dashboard NÃO lê de raw.githubusercontent nem jsDelivr.
+  O build do Netlify copia data/ para dentro do site (netlify.toml) e o commit diário de dados
+  da Action dispara o redeploy (mensagem sem [skip ci]; o workflow não tem trigger de push).
 - Tokens e credenciais só em GitHub Secrets. Nada hardcoded.
 - Dashboard 100% HTML standalone, sem build step, CSS inline ou <style> no próprio arquivo.
 
@@ -278,7 +280,8 @@ Renderiza insights.json: alertas (severidade alta primeiro), mudanças de classe
 ### O que ja foi feito
 - Pipeline completo e validado em producao para as duas lojas (F1.1 a F1.6 + F1.8 protocolado).
   produtos.json, diario.json e excecoes_nuvemshop.json sao gerados pela GitHub Action
-  (cron 06h BRT) e commitados no repo. O dashboard le via raw.githubusercontent.
+  (cron 06h BRT) e commitados no repo. O dashboard e publicado no Netlify
+  (ecommercecontrol.netlify.app) com os JSONs servidos pelo proprio deploy (repo privado).
 - dashboard/index.html criado: HTML standalone, sem build step, CSS e JS inline,
   fontes Fraunces + Inter + JetBrains Mono via Google Fonts. Le produtos.json e
   diario.json reais.

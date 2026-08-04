@@ -37,10 +37,13 @@ jobs:
           GA4_CREDENTIALS_JSON: ${{ secrets.GA4_CREDENTIALS_JSON }}
         run: python -m pipeline.run_build
 
+      # Sem [skip ci]: o push dos dados dispara o redeploy diario do Netlify (que serve
+      # os JSONs junto do site; repo privado). O proprio workflow nao tem trigger de push,
+      # entao nao ha risco de loop.
       - name: Commit dos dados
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add data/
-          git diff --staged --quiet || git commit -m "chore: atualizacao diaria dos dados [skip ci]"
+          git diff --staged --quiet || git commit -m "chore: atualizacao diaria dos dados"
           git push

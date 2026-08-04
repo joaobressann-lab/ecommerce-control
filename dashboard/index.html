@@ -263,8 +263,21 @@ svg .hitbar:hover{opacity:.85}
 <script>
 "use strict";
 const CONFIG = {
-  base: "https://raw.githubusercontent.com/joaobressann-lab/ecommerce-control/main/data/"
+  // Bases tentadas em ordem: data/ (deploy Netlify, copiado no build) e ../data/
+  // (dev local servindo a raiz do repo). Repo privado: sem raw.githubusercontent.
+  bases: ["data/", "../data/"]
 };
+async function fetchJson(nome){
+  let ultimo;
+  for(const b of CONFIG.bases){
+    try{
+      const res=await fetch(b+nome,{cache:"no-cache"});
+      if(res.ok)return await res.json();
+      ultimo=new Error(res.status+" em "+b+nome);
+    }catch(err){ultimo=err;}
+  }
+  throw ultimo||new Error("falha ao buscar "+nome);
+}
 const MARCAS = ["Carlota Costa","Simone Gomes","Ritmi Studio","RIT","Sobras/PL"];
 const MARCA_COR = {"Carlota Costa":"var(--s1)","Simone Gomes":"var(--s2)","Ritmi Studio":"var(--s3)","RIT":"var(--s4)","Sobras/PL":"var(--s5)","Desconhecida":"var(--muted)"};
 const SIZES = ["PP","P","M","G","GG","XG","U"];
@@ -1235,8 +1248,8 @@ async function boot(){
   loadURL();initEvents();
   try{
     const [pr,di]=await Promise.all([
-      fetch(CONFIG.base+"produtos.json").then(r=>r.json()),
-      fetch(CONFIG.base+"diario.json").then(r=>r.json()).catch(()=>({linhas:[],trafego:[]}))
+      fetchJson("produtos.json"),
+      fetchJson("diario.json").catch(()=>({linhas:[],trafego:[]}))
     ]);
     normalizeData(pr,di);
     initPresetFallback();
