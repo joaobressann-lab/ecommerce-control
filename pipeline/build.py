@@ -17,6 +17,7 @@ from typing import Any
 from .config import StoreConfig
 from .http import NuvemshopClient
 from .nuvemshop import (
+    CANAIS_SITE,
     LinhaVenda,
     ProdutoNorm,
     build_ean_ref_map,
@@ -27,6 +28,10 @@ from .scoring import SIZE_ORDER, SinaisProduto, calcular_score
 
 BRT = timezone(timedelta(hours=-3))
 
+# Granularidade dupla (CLAUDE.md secao 6.5): serie diaria de 90d + mensal de 24 meses.
+SERIE_DIAS = 90
+MENSAL_MESES = 24
+
 
 def _hoje_brt() -> date:
     return datetime.now(BRT).date()
@@ -36,24 +41,55 @@ def _iso(dt: date) -> str:
     return dt.isoformat()
 
 
+def _mes_de(data_iso: str) -> str:
+    return data_iso[:7]
+
+
+def _inicio_mensal(hoje: date, meses: int = MENSAL_MESES) -> date:
+    """Primeiro dia do mes, (meses-1) meses antes do mes corrente."""
+    ano = hoje.year
+    mes = hoje.month - (meses - 1)
+    while mes <= 0:
+        mes += 12
+        ano -= 1
+    return date(ano, mes, 1)
+
+
 # ---------------------------------------------------------------------- #
 # Agregacao de vendas
 # ---------------------------------------------------------------------- #
 @dataclass
 class VendasRef:
+    """Agregados de venda de uma ref.
+
+    Os campos "invariantes" (periodo, d30, receita, preco medio, por_cor_tam)
+    seguem a secao 3: SO SITE (Loja virtual + Mobile). Os diarios/mensais separam
+    site (q/r) de fora do site (qm/rm = ANYMARKET + manual) para o filtro de canal
+    no cliente.
+    """
+
     periodo: int = 0
     d30: int = 0
     receita_periodo: float = 0.0
     valor_pago_total: float = 0.0     # para preco medio pago
     unidades_pagas: int = 0
-    por_cor_tam: dict[tuple[str, str], int] = None       # (cor, tamanho) -> unidades periodo
-    por_dia: dict[str, int] = None                       # data -> unidades (serie)
+    por_cor_tam: dict[tuple[str, str], int] = None       # (cor, tamanho) -> unidades periodo (site)
+    por_dia: dict[str, int] = None                       # data -> unidades site (serie 90d)
+    receita_dia: dict[str, float] = None                 # data -> receita site (serie 90d)
+    por_dia_ext: dict[str, int] = None                   # data -> unidades fora do site
+    receita_dia_ext: dict[str, float] = None             # data -> receita fora do site
+    por_mes: dict[str, int] = None                       # YYYY-MM -> unidades site (24m)
+    receita_mes: dict[str, float] = None                 # YYYY-MM -> receita site (24m)
+    por_mes_ext: dict[str, int] = None                   # YYYY-MM -> unidades fora do site
+    receita_mes_ext: dict[str, float] = None             # YYYY-MM -> receita fora do site
 
     def __post_init__(self) -> None:
-        if self.por_cor_tam is None:
-            self.por_cor_tam = defaultdict(int)
-        if self.por_dia is None:
-            self.por_dia = defaultdict(int)
+        for campo in ("por_cor_tam", "por_dia", "por_dia_ext", "por_mes", "por_mes_ext"):
+            if getattr(self, campo) is None:
+                setattr(self, campo, defaultdict(int))
+        for campo in ("receita_dia", "receita_dia_ext", "receita_mes", "receita_mes_ext"):
+            if getattr(self, campo) is None:
+                setattr(self, campo, defaultdict(float))
 
     @property
     def preco_medio_pago(self) -> float | None:
@@ -63,9 +99,20 @@ class VendasRef:
 
 
 def _agregar_vendas(
-    linhas: list[LinhaVenda], corte_30d: date, corte_periodo: date
+    linhas: list[LinhaVenda],
+    corte_30d: date,
+    corte_periodo: date,
+    corte_serie: date | None = None,
 ) -> dict[str, VendasRef]:
-    """Agrupa linhas de venda por ref, com recortes de 30d e do periodo do filtro."""
+    """Agrupa linhas de venda por ref (TODOS os canais), com recortes de 30d,
+    do periodo do filtro, da serie diaria (90d) e mensal (24m).
+
+    A invariante da secao 3 vale aqui: os agregados de score/KPIs (periodo, d30,
+    receita_periodo, preco medio, por_cor_tam) contam SO SITE. Canais fora do site
+    entram apenas nas series *_ext, para o filtro de canal do dashboard.
+    """
+    if corte_serie is None:
+        corte_serie = corte_30d
     por_ref: dict[str, VendasRef] = defaultdict(VendasRef)
     for l in linhas:
         if not l.ref:
@@ -75,19 +122,31 @@ def _agregar_vendas(
             d = date.fromisoformat(l.data)
         except ValueError:
             continue
+        site = l.canal in CANAIS_SITE
 
-        if d >= corte_30d:
-            agg.d30 += l.quantidade
-        if d >= corte_periodo:
-            agg.periodo += l.quantidade
-            agg.receita_periodo += l.receita
-            agg.valor_pago_total += l.preco_unit_pago * l.quantidade
-            agg.unidades_pagas += l.quantidade
-            cor = (l.cor or "").strip()
-            tam = (l.tamanho or "").strip()
-            if cor or tam:
-                agg.por_cor_tam[(cor, tam)] += l.quantidade
-        agg.por_dia[l.data] += l.quantidade
+        if site:
+            if d >= corte_30d:
+                agg.d30 += l.quantidade
+            if d >= corte_periodo:
+                agg.periodo += l.quantidade
+                agg.receita_periodo += l.receita
+                agg.valor_pago_total += l.preco_unit_pago * l.quantidade
+                agg.unidades_pagas += l.quantidade
+                cor = (l.cor or "").strip()
+                tam = (l.tamanho or "").strip()
+                if cor or tam:
+                    agg.por_cor_tam[(cor, tam)] += l.quantidade
+            if d >= corte_serie:
+                agg.por_dia[l.data] += l.quantidade
+                agg.receita_dia[l.data] += l.receita
+            agg.por_mes[_mes_de(l.data)] += l.quantidade
+            agg.receita_mes[_mes_de(l.data)] += l.receita
+        else:
+            if d >= corte_serie:
+                agg.por_dia_ext[l.data] += l.quantidade
+                agg.receita_dia_ext[l.data] += l.receita
+            agg.por_mes_ext[_mes_de(l.data)] += l.quantidade
+            agg.receita_mes_ext[_mes_de(l.data)] += l.receita
     return por_ref
 
 
@@ -145,22 +204,95 @@ def _montar_variantes(
     return variantes, grade
 
 
-def _serie_30d(
+def _serie_diaria(
     vendas: VendasRef | None,
-    corte_30d: date,
+    corte_serie: date,
     hoje: date,
     ga4_dia: dict[str, dict[str, int]] | None = None,
 ) -> list[dict[str, Any]]:
-    """Serie diaria: compras (Nuvemshop, site) + views (GA4, quando disponivel)."""
+    """serie_90d ESPARSA: so dias com atividade, so campos nao-zero (orcamento de
+    tamanho da secao 6.5). Chaves curtas, documentadas no schema 5.1:
+      v=views  a=add_cart  k=checkout  c=compras GA4
+      q=un. site  r=receita site  qm=un. fora site  rm=receita fora site
+    """
+    dias: set[str] = set()
+    if vendas:
+        dias.update(vendas.por_dia)
+        dias.update(vendas.por_dia_ext)
+    if ga4_dia:
+        dias.update(ga4_dia)
+
     serie = []
-    dia = corte_30d
-    while dia <= hoje:
-        chave = _iso(dia)
-        compras = vendas.por_dia.get(chave, 0) if vendas else 0
-        views = ga4_dia.get(chave, {}).get("views", 0) if ga4_dia else 0
-        serie.append({"d": chave, "views": views, "compras": compras})
-        dia += timedelta(days=1)
+    for chave in sorted(dias):
+        try:
+            d = date.fromisoformat(chave)
+        except ValueError:
+            continue
+        if d < corte_serie or d > hoje:
+            continue
+        g = ga4_dia.get(chave, {}) if ga4_dia else {}
+        entry: dict[str, Any] = {"d": chave}
+        for k, valor in (
+            ("v", g.get("views", 0)),
+            ("a", g.get("cart", 0)),
+            ("k", g.get("checkout", 0)),
+            ("c", g.get("compras", 0)),
+            ("q", vendas.por_dia.get(chave, 0) if vendas else 0),
+            ("qm", vendas.por_dia_ext.get(chave, 0) if vendas else 0),
+        ):
+            if valor:
+                entry[k] = valor
+        for k, valor in (
+            ("r", vendas.receita_dia.get(chave, 0.0) if vendas else 0.0),
+            ("rm", vendas.receita_dia_ext.get(chave, 0.0) if vendas else 0.0),
+        ):
+            if valor:
+                entry[k] = round(valor, 2)
+        if len(entry) > 1:
+            serie.append(entry)
     return serie
+
+
+def _mensal_24m(
+    vendas: VendasRef | None,
+    inicio_mensal: date,
+    ga4_mes: dict[str, dict[str, int]] | None = None,
+) -> list[dict[str, Any]]:
+    """mensal_24m ESPARSA: so meses com atividade, so campos nao-zero.
+    Chaves: v=views  c=compras GA4  q=un. site  r=receita site
+            qm=un. fora site  rm=receita fora site
+    """
+    meses: set[str] = set()
+    if vendas:
+        meses.update(vendas.por_mes)
+        meses.update(vendas.por_mes_ext)
+    if ga4_mes:
+        meses.update(ga4_mes)
+
+    piso = _mes_de(_iso(inicio_mensal))
+    saida = []
+    for mes in sorted(meses):
+        if mes < piso:
+            continue
+        g = ga4_mes.get(mes, {}) if ga4_mes else {}
+        entry: dict[str, Any] = {"m": mes}
+        for k, valor in (
+            ("v", g.get("views", 0)),
+            ("c", g.get("compras", 0)),
+            ("q", vendas.por_mes.get(mes, 0) if vendas else 0),
+            ("qm", vendas.por_mes_ext.get(mes, 0) if vendas else 0),
+        ):
+            if valor:
+                entry[k] = valor
+        for k, valor in (
+            ("r", vendas.receita_mes.get(mes, 0.0) if vendas else 0.0),
+            ("rm", vendas.receita_mes_ext.get(mes, 0.0) if vendas else 0.0),
+        ):
+            if valor:
+                entry[k] = round(valor, 2)
+        if len(entry) > 1:
+            saida.append(entry)
+    return saida
 
 
 # ---------------------------------------------------------------------- #
@@ -172,9 +304,16 @@ def _montar_produto(
     corte_30d: date,
     hoje: date,
     ga4_funil: dict[str, Any] | None = None,
-    ga4_origens: list[dict[str, Any]] | None = None,
+    ga4_origens: dict[str, list[dict[str, Any]]] | None = None,
     ga4_dia: dict[str, dict[str, int]] | None = None,
+    ga4_mes: dict[str, dict[str, int]] | None = None,
+    corte_serie: date | None = None,
+    inicio_mensal: date | None = None,
 ) -> dict[str, Any]:
+    if corte_serie is None:
+        corte_serie = hoje - timedelta(days=SERIE_DIAS)
+    if inicio_mensal is None:
+        inicio_mensal = _inicio_mensal(hoje)
     variantes, grade = _montar_variantes(produto, vendas)
 
     v_periodo = vendas.periodo if vendas else 0
@@ -231,10 +370,11 @@ def _montar_produto(
         "variantes": variantes,
         "funil": funil,
         "vendas": {"periodo": v_periodo, "d30": v_30d, "receita_periodo": receita},
-        "origens": ga4_origens or [],
+        "origens": ga4_origens or {},
         # Midia (Meta/Google) entra em F2/F3:
         "midia": {"google_custo": None, "google_roas": None, "meta_custo": None, "meta_roas": None},
-        "serie_30d": _serie_30d(vendas, corte_30d, hoje, ga4_dia),
+        "serie_90d": _serie_diaria(vendas, corte_serie, hoje, ga4_dia),
+        "mensal_24m": _mensal_24m(vendas, inicio_mensal, ga4_mes),
         "score": resultado.score,
         "classe": resultado.classe,
         "score_parcial": resultado.score_parcial,
@@ -275,7 +415,9 @@ def _montar_diario(
 # ---------------------------------------------------------------------- #
 # Orquestracao
 # ---------------------------------------------------------------------- #
-def _coletar_ga4_loja(loja: StoreConfig, ean_para_ref: dict[str, str], inicio: str, fim: str):
+def _coletar_ga4_loja(
+    loja: StoreConfig, ean_para_ref: dict[str, str], hoje: str, inicio_mensal: str
+):
     """Coleta GA4 da loja se houver propriedade + service account. Import tardio (libs pesadas)."""
     from .config import GA4_CREDENTIALS_ENV
 
@@ -285,7 +427,7 @@ def _coletar_ga4_loja(loja: StoreConfig, ean_para_ref: dict[str, str], inicio: s
         return None
     try:
         from .ga4 import coletar_ga4  # import tardio: so quando GA4 esta configurado
-        return coletar_ga4(loja.ga4_property, ean_para_ref, inicio, fim)
+        return coletar_ga4(loja.ga4_property, ean_para_ref, hoje, inicio_mensal)
     except Exception as exc:  # nao derruba o pipeline se o GA4 falhar
         print(f"AVISO: GA4 loja {loja.numero} falhou ({exc}). Seguindo sem GA4 nesta loja.")
         return None
@@ -321,15 +463,19 @@ def _aplicar_auditar_pdp(produtos_out: list[dict[str, Any]]) -> None:
 
 
 def construir(
-    lojas: list[StoreConfig], periodo_dias: int = 30, janela_dias: int = 30
+    lojas: list[StoreConfig], periodo_dias: int = 30
 ) -> tuple[dict[str, Any], dict[str, Any]]:
-    """Baixa as lojas configuradas e monta (produtos_json, diario_json)."""
+    """Baixa as lojas configuradas e monta (produtos_json, diario_json).
+
+    Janela de pedidos: 24 meses (mensal_24m + diario.json diario). Serie diaria
+    por produto: 90d. Score e funil baseline: 30d.
+    """
     hoje = _hoje_brt()
     corte_30d = hoje - timedelta(days=30)
     corte_periodo = hoje - timedelta(days=periodo_dias)
-    janela_min = (hoje - timedelta(days=max(janela_dias, periodo_dias, 30))).isoformat()
-    ga4_inicio = _iso(corte_30d)
-    ga4_fim = _iso(hoje)
+    corte_serie = hoje - timedelta(days=SERIE_DIAS)
+    inicio_mensal = _inicio_mensal(hoje)
+    pedidos_min = _iso(inicio_mensal)
 
     produtos_out: list[dict[str, Any]] = []
     linhas_por_loja: dict[int, list[LinhaVenda]] = {}
@@ -342,11 +488,17 @@ def construir(
         client = NuvemshopClient(loja)
         produtos = load_products(client, loja.numero)
         mapa = build_ean_ref_map(produtos)
-        vendas_linhas = load_sales(client, mapa, loja.numero, created_at_min=janela_min)
+        # TODOS os canais: o site continua sendo a invariante do score, mas as
+        # series carregam ANYMARKET/manual separados para o filtro de canal.
+        vendas_linhas = load_sales(
+            client, mapa, loja.numero, created_at_min=pedidos_min, somente_site=False
+        )
         linhas_por_loja[loja.numero] = vendas_linhas
-        vendas_por_ref = _agregar_vendas(vendas_linhas, corte_30d, corte_periodo)
+        vendas_por_ref = _agregar_vendas(
+            vendas_linhas, corte_30d, corte_periodo, corte_serie
+        )
 
-        ga4 = _coletar_ga4_loja(loja, mapa.ean_para_ref, ga4_inicio, ga4_fim)
+        ga4 = _coletar_ga4_loja(loja, mapa.ean_para_ref, _iso(hoje), pedidos_min)
         if ga4 is not None:
             algum_ga4 = True
             for linha in ga4.site_dia:
@@ -361,8 +513,12 @@ def construir(
             gfun = ga4.funil.get(prod.ref) if ga4 and prod.ref else None
             gorig = ga4.origens.get(prod.ref) if ga4 and prod.ref else None
             gdia = ga4.por_dia.get(prod.ref) if ga4 and prod.ref else None
+            gmes = ga4.por_mes.get(prod.ref) if ga4 and prod.ref else None
             produtos_out.append(
-                _montar_produto(prod, vendas, corte_30d, hoje, gfun, gorig, gdia)
+                _montar_produto(
+                    prod, vendas, corte_30d, hoje, gfun, gorig, gdia, gmes,
+                    corte_serie, inicio_mensal,
+                )
             )
 
     _aplicar_auditar_pdp(produtos_out)
@@ -376,6 +532,9 @@ def construir(
             "score_parcial_global": not algum_ga4,
             "total_produtos": len(produtos_out),
             "ga4_eans_nao_mapeados": ga4_nao_mapeados,
+            "serie_dias": SERIE_DIAS,
+            "mensal_meses": MENSAL_MESES,
+            "origens_presets": ["7d", "30d", "90d"],
         },
         "produtos": produtos_out,
     }

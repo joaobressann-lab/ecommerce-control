@@ -18,10 +18,15 @@ from .http import NuvemshopClient
 from .nuvemshop import build_ean_ref_map, load_products
 
 
-def _gravar(nome: str, conteudo: dict) -> None:
+def _gravar(nome: str, conteudo: dict, compacto: bool = False) -> None:
+    """compacto=True grava sem indentacao (produtos/diario: orcamento de tamanho 6.5)."""
     DATA_DIR.mkdir(exist_ok=True)
     destino = DATA_DIR / nome
-    destino.write_text(json.dumps(conteudo, ensure_ascii=False, indent=2), encoding="utf-8")
+    if compacto:
+        texto = json.dumps(conteudo, ensure_ascii=False, separators=(",", ":"))
+    else:
+        texto = json.dumps(conteudo, ensure_ascii=False, indent=2)
+    destino.write_text(texto, encoding="utf-8")
     tamanho_kb = destino.stat().st_size / 1024
     print(f"  gravado {destino.name} ({tamanho_kb:,.0f} KB)")
 
@@ -65,8 +70,8 @@ def main() -> None:
         f"  produtos: {produtos_json['meta']['total_produtos']} | "
         f"linhas diario: {len(diario_json['linhas'])}"
     )
-    _gravar("produtos.json", produtos_json)
-    _gravar("diario.json", diario_json)
+    _gravar("produtos.json", produtos_json, compacto=True)
+    _gravar("diario.json", diario_json, compacto=True)
 
     if not args.sem_excecoes:
         _gravar("excecoes_nuvemshop.json", _excecoes(lojas))

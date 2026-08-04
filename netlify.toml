@@ -1,0 +1,8 @@
+# Netlify: publica o dashboard estatico. Os dados vem de raw.githubusercontent (CLAUDE.md secao 1).
+[build]
+  publish = "dashboard"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Cache-Control = "public, max-age=300"

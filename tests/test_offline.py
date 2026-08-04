@@ -189,22 +189,59 @@ def test_merge_ga4() -> None:
     corte_30d = HOJE - timedelta(days=30)
     vendas = _agregar_vendas(linhas, corte_30d, corte_30d)
 
+    ontem = (HOJE - timedelta(days=1)).isoformat()
     ga4_funil = {"views": 500, "add_cart": 60, "checkout": 25, "compras": 20,
                  "receita": 5990.0, "cv_view_cart": 12.0, "cv_cart_compra": 33.33, "cv_geral": 4.0}
-    ga4_origens = [{"source": "facebook", "medium": "cpc", "views": 300, "add_cart": 40,
-                    "compras": 12, "receita": 3600.0}]
-    ga4_dia = {(HOJE - timedelta(days=1)).isoformat(): {"views": 40, "compras": 2}}
+    ga4_origens = {"30d": [{"source": "facebook", "medium": "cpc", "views": 300, "add_cart": 40,
+                            "compras": 12, "receita": 3600.0}]}
+    ga4_dia = {ontem: {"views": 40, "cart": 6, "checkout": 3, "compras": 2}}
+    ga4_mes = {ontem[:7]: {"views": 900, "compras": 20}}
 
     prod_json = _montar_produto(produtos[0], vendas.get("CSV1234"), corte_30d, HOJE,
-                                ga4_funil, ga4_origens, ga4_dia)
+                                ga4_funil, ga4_origens, ga4_dia, ga4_mes)
     check(prod_json["funil"]["views"] == 500, "funil views deveria vir do GA4")
     check(prod_json["funil"]["cv_geral"] == 4.0, "cv_geral deveria vir do GA4")
     check(prod_json["score_parcial"] is False, "com GA4 o score nao deveria ser parcial")
-    check(len(prod_json["origens"]) == 1, "origens deveria ter a linha GA4")
+    check(len(prod_json["origens"]["30d"]) == 1, "origens[30d] deveria ter a linha GA4")
+
+    # serie_90d esparsa, chaves curtas: v/a/k/c (GA4) + q/r (Nuvemshop site).
+    dia = next(d for d in prod_json["serie_90d"] if d["d"] == ontem)
+    check(dia["v"] == 40 and dia["a"] == 6 and dia["k"] == 3 and dia["c"] == 2,
+          f"serie deveria ter funil diario do GA4: {dia}")
+    check(dia["q"] == 2, "serie deveria manter unidades site da Nuvemshop")
+    check(abs(dia["r"] - 599.80) < 0.001, f"receita site do dia errada: {dia.get('r')}")
+    check(len(prod_json["serie_90d"]) == 1, "serie esparsa: so dias com atividade")
+
+    # mensal_24m: GA4 (v/c) + Nuvemshop site (q/r).
+    mes = next(m for m in prod_json["mensal_24m"] if m["m"] == ontem[:7])
+    check(mes["v"] == 900 and mes["c"] == 20, f"mensal deveria ter views/compras GA4: {mes}")
+    check(mes["q"] == 2 and abs(mes["r"] - 599.80) < 0.001, f"mensal site errado: {mes}")
+
+
+def test_canais_serie_e_mensal() -> None:
+    """Canais fora do site (ANYMARKET/manual) nao entram nos agregados invariantes,
+    mas aparecem separados (qm/rm) na serie diaria e na mensal."""
+    produtos = [parse_product(PRODUTO_ESTRELA, 1)]
+    mapa = build_ean_ref_map(produtos)
+    linhas = parse_order_lines(PEDIDO, mapa, loja=1) + parse_order_lines(
+        PEDIDO_ANYMARKET, mapa, loja=1
+    )
+    corte_30d = HOJE - timedelta(days=30)
+    vendas = _agregar_vendas(linhas, corte_30d, corte_30d)
+    agg = vendas["CSV1234"]
+
+    check(agg.periodo == 2, f"periodo (site) esperado 2, veio {agg.periodo}")
+    check(agg.d30 == 2, f"d30 (site) esperado 2, veio {agg.d30}")
+    check(abs(agg.receita_periodo - 599.80) < 0.001, "receita periodo deveria ser so site")
+
+    prod_json = _montar_produto(produtos[0], agg, corte_30d, HOJE)
     ontem = (HOJE - timedelta(days=1)).isoformat()
-    dia = next(d for d in prod_json["serie_30d"] if d["d"] == ontem)
-    check(dia["views"] == 40, "serie deveria ter views do GA4")
-    check(dia["compras"] == 2, "serie deveria manter compras da Nuvemshop")
+    dia = next(d for d in prod_json["serie_90d"] if d["d"] == ontem)
+    check(dia["q"] == 2 and dia["qm"] == 5, f"split site/fora do site errado no dia: {dia}")
+    check(abs(dia["rm"] - 1550.0) < 0.001, f"receita fora do site errada: {dia.get('rm')}")
+    mes = next(m for m in prod_json["mensal_24m"] if m["m"] == ontem[:7])
+    check(mes["q"] == 2 and mes["qm"] == 5, f"split site/fora do site errado no mes: {mes}")
+    check(prod_json["classe"] == "ESTRELA", "classe nao deveria mudar com canais externos")
 
 
 def test_nao_publicado_penalizado() -> None:
@@ -222,6 +259,7 @@ def main() -> None:
         test_pedido_e_canal,
         test_build_produto_estrela,
         test_merge_ga4,
+        test_canais_serie_e_mensal,
         test_nao_publicado_penalizado,
     ]
     for t in testes:

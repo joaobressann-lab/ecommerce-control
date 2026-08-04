@@ -113,13 +113,14 @@ O item_id do GA4 é o EAN-13 da VARIANTE (cor+tamanho), campo sku da Nuvemshop. 
       ],
       "funil": {"views": 812, "add_cart": 96, "checkout": 41, "compras": 23, "cv_view_cart": 11.8, "cv_cart_compra": 24.0, "cv_geral": 2.83},
       "vendas": {"periodo": 23, "d30": 31, "receita_periodo": 6610.20},
-      "origens": [
-        {"source": "facebook", "medium": "cpc", "views": 340, "add_cart": 41, "compras": 11, "receita": 3164.90},
-        {"source": "(direct)", "medium": "(none)", "views": 210, "add_cart": 18, "compras": 4, "receita": 1149.60}
-      ],
+      "origens": {
+        "7d":  [{"source": "facebook", "medium": "cpc", "views": 88, "add_cart": 9, "compras": 3, "receita": 812.70}],
+        "30d": [{"source": "facebook", "medium": "cpc", "views": 340, "add_cart": 41, "compras": 11, "receita": 3164.90}],
+        "90d": [{"source": "facebook", "medium": "cpc", "views": 990, "add_cart": 120, "compras": 30, "receita": 8890.10}]
+      },
       "midia": {"google_custo": 84.20, "google_roas": 5.1, "meta_custo": 132.50, "meta_roas": 4.2},
-      "serie_90d": [{"d": "2026-06-24", "views": 31, "compras": 1}],
-      "mensal_24m": [{"m": "2026-06", "vendas": 28, "receita": 8120.40, "views": 940, "compras": 25}],
+      "serie_90d": [{"d": "2026-06-24", "v": 31, "a": 4, "k": 2, "c": 1, "q": 1, "r": 289.90}],
+      "mensal_24m": [{"m": "2026-06", "v": 940, "c": 25, "q": 28, "r": 8120.40}],
       "score": 87.4,
       "classe": "ESTRELA"
     }
@@ -127,7 +128,18 @@ O item_id do GA4 é o EAN-13 da VARIANTE (cor+tamanho), campo sku da Nuvemshop. 
 }
 ```
 
-### 5.2 data/diario.json (série por dia x loja x marca x canal de aquisição)
+Notas do schema 5.1 (como implementado):
+- serie_90d e mensal_24m sao ESPARSAS (so dias/meses com atividade, so campos nao-zero) e usam
+  chaves curtas por orcamento de tamanho: v=views, a=add_cart, k=checkout, c=compras GA4,
+  q=unidades site (Nuvemshop), r=receita site, qm=unidades fora do site (ANYMARKET+manual),
+  rm=receita fora do site. Os JSONs sao gravados compactos (sem indentacao).
+- origens: dict por preset (7d/30d/90d), top 8 + "outros" em cada um.
+- meta inclui serie_dias (90), mensal_meses (24) e origens_presets; o dashboard usa esses campos
+  para decidir granularidade e tem camada de compatibilidade com o formato antigo (serie_30d).
+- Invariante da secao 3 preservada: score, funil baseline, vendas.periodo/d30, desconto medio e
+  matriz de variantes contam SO SITE; canais externos existem apenas em qm/rm.
+
+### 5.2 data/diario.json (série por dia x loja x marca x canal de venda, 24 meses de granularidade diária)
 ```json
 {"linhas": [{"d": "2026-07-22", "loja": 1, "marca": "Carlota Costa", "canal_ga4": "Paid Social", "sessoes": 1240, "transacoes": 18, "receita": 5320.10, "custo_meta": 210.00, "custo_google": 95.00}]}
 ```
@@ -242,7 +254,26 @@ Renderiza insights.json: alertas (severidade alta primeiro), mudanças de classe
 - [ ] Google Ads: ID da MCC/conta para solicitar developer token.
 - [ ] Composição exata da Loja 2 ("mistura"): quais marcas/prefixos entram lá.
 
-## Estado atual do dashboard (F1.7 em andamento, pausa de 04/08/2026)
+## Estado atual do dashboard (F1.7 em andamento, atualizado em 04/08/2026 pt.2)
+
+### Sessao de 04/08 (parte 2): o que mudou
+- Pipeline: serie_90d diaria (v/a/k/c/q/r/qm/rm, esparsa) + mensal_24m (24 meses) por produto;
+  origens pre-agregadas nos presets 7/30/90d (um runReport com 3 date_ranges); GA4 site x dia
+  e pedidos Nuvemshop com janela de 24 meses (diario.json diario por 24m); pedidos baixados de
+  TODOS os canais com split site x fora do site preservando a invariante (secao 3) no score;
+  JSONs compactos (sem indent). Testes offline cobrindo split de canais e mensal.
+- Dashboard: filtro de data completo (presets 7/30/90d + personalizado: dia, intervalo, mes, ano)
+  com granularidade dupla e avisos; filtros de canal de venda, origem de midia (grupos GA4),
+  colecao (prefixo+ano derivada no cliente) e faixa de preco; tooltips com crosshair e navegacao
+  por teclado nos graficos (serie ampliada, receita diaria, sparklines, rankings); comparativo
+  vs periodo anterior equivalente (KPIs e rankings); rankings novos (colecoes, faixas de preco,
+  origens de midia); grafico de receita com eixos, gridlines e visao tabela; KPIs de receita e
+  pedidos vindos do diario (transacoes reais) quando o recorte permite, senao por produto
+  (rotulado "Unidades"); camada de compatibilidade com produtos.json antigo (serie_30d).
+- Revisao visual feita em headless (light + dark + granularidade mensal), correcoes de layout
+  (KPI sem quebra de linha, marca em 1 linha, resumo do filtro de canal).
+
+## Estado anterior (referencia da sessao de 04/08 pt.1)
 
 ### O que ja foi feito
 - Pipeline completo e validado em producao para as duas lojas (F1.1 a F1.6 + F1.8 protocolado).
@@ -279,16 +310,11 @@ Renderiza insights.json: alertas (severidade alta primeiro), mudanças de classe
 - Tabela pagina em blocos (150 inicial, botao carregar mais) por causa dos 3472 produtos.
 
 ### Proximo passo
-1. Renderizar e revisar visualmente o dashboard (nao consegui abrir em navegador
-   nesta maquina; validar layout, colisoes de rotulo e overflow, conforme passo 7 da
-   skill dataviz). Publicar no Netlify apontando para dashboard/index.html.
-2. Completar a Aba 1 (comparativo com periodo anterior, mais rankings: colecoes por
-   prefixo+ano e faixas de preco derivadas no cliente) e adicionar as abas 3 (Funil e
-   trafego, usando diario.trafego do GA4) e 4/5 nas fases seguintes.
-3. Tooltips de hover nos graficos (crosshair na serie, por-marca nos rankings),
-   conforme a skill dataviz (atualmente so ha <title> nos bars).
-4. Filtros ainda nao implementados no cliente: data (presets 7/30/90d + seletor
-   personalizado: dia especifico, intervalo livre, mes e ano), canal de venda,
-   origem de midia, colecao, faixa de preco. A serie por produto hoje e serie_30d;
-   para o filtro de data recalcular no cliente sera preciso serie_90d + agregados
-   mensais mensal_24m de 24 meses (ver secao 6.5).
+1. Validar o pipeline novo em producao (workflow_dispatch): conferir tamanho dos JSONs
+   (alvo secao 6.5; se estourar, dividir produtos.json por loja), tempo de execucao com
+   24 meses de pedidos e o preenchimento de serie_90d/mensal_24m/origens por preset.
+2. Publicar no Netlify apontando para dashboard/ (netlify.toml na raiz) e conferir o
+   dashboard com os dados novos (deltas de comparativo, granularidade mensal com numeros).
+3. Aba 3 (Funil e trafego, usando diario.trafego do GA4) e abas 4/5 nas fases seguintes.
+4. Refinos possiveis: range customizado de origens alem dos presets, comparativo tambem
+   na conversao, ordenacao clicavel de colunas na aba Produtos.
