@@ -242,6 +242,7 @@ svg .hitbar:hover{opacity:.85}
     <div class="grp"><label class="lbl">Classe</label><select id="fclasse"><option value="">Todas</option></select></div>
     <button class="chip" id="fpub" aria-pressed="false">Só publicados</button>
     <button class="chip" id="fgrade" aria-pressed="false">Só grade cheia</button>
+    <button class="chip hidden" id="flimpar" title="Voltar todos os filtros ao padrão">✕ Limpar filtros</button>
     <div class="vmtoggle" title="Score VM: só site, só publicados, renumera no recorte">
       <b>Modo VM</b><button class="switch" id="vm" aria-pressed="false"></button>
     </div>
@@ -458,7 +459,9 @@ function colecaoDe(ref){
   return m[1]+m[2];
 }
 function faixaDe(p){
-  const preco=p.preco_promocional!=null?p.preco_promocional:p.preco_cheio;
+  // Faixa pelo preco PAGO (medio real dos pedidos); fallback: promocional, cheio.
+  const preco=p.preco_medio_pago!=null?p.preco_medio_pago
+    :(p.preco_promocional!=null?p.preco_promocional:p.preco_cheio);
   if(preco==null)return null;
   const f=FAIXAS.find(f=>preco>=f.min&&preco<=f.max);
   return f?f.id:null;
@@ -1181,9 +1184,23 @@ function renderDataUI(){
   if(dr.type==="mes")dme.value=dr.m;
 }
 
+function filtrosAtivos(){
+  const drDef=STATE.dr.type==="preset"&&STATE.dr.dias===30;
+  const canalDef=STATE.canais.size===2&&STATE.canais.has("lv")&&STATE.canais.has("mob");
+  return !!(STATE.q||STATE.marcas.size||STATE.loja||STATE.cat||STATE.classe||STATE.pub||STATE.grade
+    ||STATE.colecoes.size||STATE.faixas.size||STATE.origens.size||!drDef||!canalDef);
+}
+function limparFiltros(){
+  Object.assign(STATE,{q:"",marcas:new Set(),loja:"",cat:"",classe:"",pub:false,grade:false,
+    dr:{type:"preset",dias:30},canais:new Set(["lv","mob"]),origens:new Set(),
+    colecoes:new Set(),faixas:new Set()});
+  renderMarcaChips();renderDrops();popularSelects();saveURL();renderAll();
+}
 function renderAvisos(){
+  document.getElementById("flimpar").classList.toggle("hidden",!filtrosAtivos());
   const r=resolveRange();
   const av=[];
+  if(DATA.meta&&DATA.meta.ga4_disponivel===false)av.push("GA4 indisponível neste run: views, funil e origens zerados; score parcial");
   if(r.gran==="m")av.push(r.aviso||"granularidade mensal: agregados por mês (mensal_24m)");
   if(STATE.origens.size)av.push("filtro de origem: atribuição GA4 pelo preset "+presetOrigem(r)+" (não recorta pela data exata)");
   const ci=canaisInfo();
@@ -1220,6 +1237,7 @@ function initEvents(){
   document.getElementById("fclasse").addEventListener("change",e=>{STATE.classe=e.target.value;saveURL();renderAll();});
   document.getElementById("fpub").addEventListener("click",e=>{STATE.pub=!STATE.pub;e.target.setAttribute("aria-pressed",STATE.pub);saveURL();renderAll();});
   document.getElementById("fgrade").addEventListener("click",e=>{STATE.grade=!STATE.grade;e.target.setAttribute("aria-pressed",STATE.grade);saveURL();renderAll();});
+  document.getElementById("flimpar").addEventListener("click",limparFiltros);
   document.getElementById("vm").addEventListener("click",e=>{STATE.vm=!STATE.vm;e.currentTarget.setAttribute("aria-pressed",STATE.vm);if(STATE.vm)STATE.tab="produtos";saveURL();renderAll();});
   document.querySelectorAll("#tabs button").forEach(b=>b.addEventListener("click",()=>{STATE.tab=b.dataset.tab;saveURL();renderAll();}));
   document.querySelectorAll(".dpre").forEach(b=>b.addEventListener("click",()=>{

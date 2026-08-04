@@ -9,11 +9,36 @@ from __future__ import annotations
 
 from collections import defaultdict
 from dataclasses import dataclass, field
+from datetime import datetime, timedelta, timezone
 from typing import Any, Iterator
 
 from .brands import extrair_ref, marca_por_ref, normalizar_cor
 from .config import StoreConfig
 from .http import NuvemshopClient
+
+# Fuso canonico do negocio (CLAUDE.md secao 3). America/Sao_Paulo via zoneinfo,
+# com fallback para UTC-3 fixo (equivalente desde o fim do horario de verao em 2019).
+try:
+    from zoneinfo import ZoneInfo
+    TZ_SP = ZoneInfo("America/Sao_Paulo")
+except Exception:  # pragma: no cover - ambiente sem tzdata
+    TZ_SP = timezone(timedelta(hours=-3))
+
+
+def data_local(created_at: str) -> str:
+    """Data (YYYY-MM-DD) do pedido no fuso America/Sao_Paulo.
+
+    A API da Nuvemshop devolve created_at em UTC; fatiar a string direto joga
+    pedidos das 21h-23h59 BRT no dia seguinte. Converte antes de extrair a data.
+    """
+    s = (created_at or "").strip()
+    try:
+        dt = datetime.fromisoformat(s.replace("Z", "+00:00"))
+    except ValueError:
+        return s[:10]
+    if dt.tzinfo is None:
+        dt = dt.replace(tzinfo=timezone.utc)
+    return dt.astimezone(TZ_SP).date().isoformat()
 
 # Tokens que identificam o atributo de TAMANHO (o outro atributo vira COR).
 _TOKENS_TAMANHO = {
@@ -317,7 +342,9 @@ def classificar_canal(raw_order: dict[str, Any]) -> str:
 
 
 def _pedido_pago(raw_order: dict[str, Any]) -> bool:
-    """Pedido conta como venda: pago e nao cancelado."""
+    """Regra canonica de receita (CLAUDE.md secao 3): conta somente pedido com
+    pagamento aprovado (payment_status=paid), site E marketplace. Pendentes,
+    cancelados, abandonados, estornados e devolvidos ficam fora."""
     if str(raw_order.get("status") or "").lower() == "cancelled":
         return False
     return str(raw_order.get("payment_status") or "").lower() == "paid"
@@ -325,15 +352,15 @@ def _pedido_pago(raw_order: dict[str, Any]) -> bool:
 
 @dataclass
 class LinhaVenda:
-    data: str                 # YYYY-MM-DD (created_at do pedido)
+    data: str                 # YYYY-MM-DD (created_at convertido para America/Sao_Paulo)
     ref: str | None
     ean: str | None
     variant_id: int
     cor: str | None
     tamanho: str | None
     quantidade: int
-    receita: float            # total pago da linha (unit * qtd, ja com desconto do item)
-    preco_unit_pago: float    # receita / quantidade
+    receita: float            # fatia da linha no TOTAL do pedido (com frete), rateio proporcional
+    preco_unit_pago: float    # preco do item no pedido (sem frete; base do desconto medio)
     canal: str
     loja: int
     order_id: int
@@ -347,17 +374,34 @@ def parse_order_lines(
 ) -> list[LinhaVenda]:
     """Extrai as linhas de venda de um pedido, resolvendo ref pela variante/EAN.
 
-    O preco unitario pago vem do proprio item do pedido (ja reflete promo vigente),
-    base para o "desconto medio real" do produtos.json.
+    Receita canonica (CLAUDE.md secao 3): o TOTAL do pedido (campo `total`, com
+    frete e descontos de pedido), rateado proporcionalmente entre as linhas pelo
+    valor dos itens, com ajuste de centavos na ultima linha para a soma bater
+    exatamente com o total. O preco unitario pago segue sendo o do ITEM (sem
+    frete): e a base do "desconto medio real" do produtos.json.
     """
     if somente_pagos and not _pedido_pago(raw_order):
         return []
 
     canal = classificar_canal(raw_order)
-    data = str(raw_order.get("created_at") or "")[:10]
+    data = data_local(str(raw_order.get("created_at") or ""))
     linhas: list[LinhaVenda] = []
 
-    for item in raw_order.get("products") or []:
+    itens = raw_order.get("products") or []
+    valores_item = [(_to_float(i.get("price")) or 0.0) * _to_int(i.get("quantity")) for i in itens]
+    soma_itens = sum(valores_item)
+    total_pedido = _to_float(raw_order.get("total"))
+    if total_pedido is None:
+        total_pedido = soma_itens
+
+    receitas: list[float] = []
+    for v in valores_item:
+        receitas.append(round(total_pedido * v / soma_itens, 2) if soma_itens > 0
+                        else round(total_pedido / len(itens), 2) if itens else 0.0)
+    if receitas:
+        receitas[-1] = round(receitas[-1] + (round(total_pedido, 2) - round(sum(receitas), 2)), 2)
+
+    for item, receita in zip(itens, receitas):
         ean = str(item.get("sku")).strip() if item.get("sku") else None
         variant = mapa.ean_para_variante.get(ean) if ean else None
         ref = mapa.ean_para_ref.get(ean) if ean else None
@@ -367,7 +411,6 @@ def parse_order_lines(
 
         qtd = _to_int(item.get("quantity"))
         preco_unit = _to_float(item.get("price")) or 0.0
-        receita = preco_unit * qtd
 
         linhas.append(
             LinhaVenda(
@@ -378,7 +421,7 @@ def parse_order_lines(
                 cor=variant.cor if variant else None,
                 tamanho=variant.tamanho if variant else None,
                 quantidade=qtd,
-                receita=round(receita, 2),
+                receita=receita,
                 preco_unit_pago=round(preco_unit, 2),
                 canal=canal,
                 loja=loja,

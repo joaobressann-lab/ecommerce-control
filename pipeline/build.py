@@ -18,6 +18,7 @@ from .config import StoreConfig
 from .http import NuvemshopClient
 from .nuvemshop import (
     CANAIS_SITE,
+    TZ_SP,
     LinhaVenda,
     ProdutoNorm,
     build_ean_ref_map,
@@ -26,7 +27,8 @@ from .nuvemshop import (
 )
 from .scoring import SIZE_ORDER, SinaisProduto, calcular_score
 
-BRT = timezone(timedelta(hours=-3))
+# Fuso canonico do negocio (America/Sao_Paulo; ver nuvemshop.TZ_SP).
+BRT = TZ_SP
 
 # Granularidade dupla (CLAUDE.md secao 6.5): serie diaria de 90d + mensal de 24 meses.
 SERIE_DIAS = 90

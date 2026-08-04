@@ -47,3 +47,16 @@ jobs:
           git add data/
           git diff --staged --quiet || git commit -m "chore: atualizacao diaria dos dados"
           git push
+
+      # Redeploy garantido do Netlify via build hook (o webhook de push nem sempre dispara).
+      # Criar o hook em Site configuration > Build & deploy > Build hooks e salvar a URL
+      # no Secret NETLIFY_BUILD_HOOK. Passo e opcional: sem o Secret, so avisa.
+      - name: Disparar deploy Netlify (build hook)
+        env:
+          HOOK: ${{ secrets.NETLIFY_BUILD_HOOK }}
+        run: |
+          if [ -n "$HOOK" ]; then
+            curl -s -X POST -d '{}' "$HOOK" && echo "build hook disparado"
+          else
+            echo "NETLIFY_BUILD_HOOK ausente; pulei o redeploy automatico"
+          fi

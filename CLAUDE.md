@@ -45,6 +45,16 @@ Filtro de marca global no topo do dashboard, valendo para todas as abas.
 ## 3. Regras de negócio (invariantes, não negociar)
 
 - Vendas do site: Canal in (Loja virtual, Mobile). Excluir ANYMARKET e Pedidos manuais.
+  (Vale para score, Modo VM e agregados "site"; a receita canônica abaixo cobre todos os canais.)
+- RECEITA CANÔNICA (definida por João em 04/08/2026): valor TOTAL do pedido incluindo frete
+  (campo `total` da API Nuvemshop, coluna Total do admin), somente pedidos com pagamento
+  aprovado (payment_status=paid), tanto site quanto marketplace. Excluir pendentes, cancelados,
+  abandonados e estornados. Nos recortes por produto/marca, o total do pedido é rateado
+  proporcionalmente entre as linhas pelo valor dos itens (ajuste de centavos na última linha,
+  para a soma bater exata). O preço unitário pago (base do desconto médio real) segue sendo o
+  do item, sem frete.
+- Datas de pedido no fuso America/Sao_Paulo: o `created_at` da API vem em UTC e é convertido
+  antes de extrair a data (senão pedidos de 21h-23h59 BRT caem no dia seguinte).
 - CSV/exports Nuvemshop quando usados: separador ";", encoding Latin-1, estrutura multi-linha por pedido exigindo ffill.
 - Match de variante: ref + nome de cor TC normalizado (sem acento, sem espaço, sem "TC"), fallback pantone.
 - Grade cheia: P/M/G completos em pelo menos 1 cor.
@@ -176,7 +186,7 @@ Filtros disponíveis:
 - **Origem de mídia (GA4)**: Meta (facebook/instagram cpc) · Google cpc · Direct · Orgânico · Edrone/email · Outros. Filtra os funis, as views e as compras atribuídas nas abas 1, 2 e 3.
 - **Coleção**: detecção automática por padrão prefixo+ano (convenção existente das análises de coleção). Multi-select.
 - **Categoria**: via CAT_MAP.
-- **Faixa de preço**: derivada do preço promocional vigente (até 99 · 100-199 · 200-299 · 300-399 · 400+), ajustável.
+- **Faixa de preço**: derivada do preço médio PAGO nos pedidos (fallback: promocional vigente, depois preço cheio), faixas até 99 · 100-199 · 200-299 · 300-399 · 400+, ajustável.
 - **Classe** (só aba Produtos): ESTRELA, VENDEDOR, etc.
 - **Só publicados / só grade cheia / faixa de desconto / origem dominante** (aba Produtos).
 
@@ -256,7 +266,17 @@ Renderiza insights.json: alertas (severidade alta primeiro), mudanças de classe
 - [ ] Google Ads: ID da MCC/conta para solicitar developer token.
 - [ ] Composição exata da Loja 2 ("mistura"): quais marcas/prefixos entram lá.
 
-## Estado atual do dashboard (F1.7 em andamento, atualizado em 04/08/2026 pt.2)
+## Estado atual do dashboard (F1.7 em andamento, atualizado em 04/08/2026 pt.3)
+
+### Sessao de 04/08 (parte 3): receita canonica e deploy privado
+- Receita canonica implementada (secao 3): total do pedido com frete, so payment_status=paid,
+  todos os canais, rateio proporcional por linha com ajuste de centavos. Datas de pedido
+  convertidas de UTC para America/Sao_Paulo (bug real: pedidos de 21h+ caiam no dia seguinte).
+- Dashboard: faixa de preco pelo preco medio pago; botao global "Limpar filtros"; aviso quando
+  o GA4 vier indisponivel no run. JSONs servidos pelo proprio deploy Netlify (repo privado).
+- Deploy: webhook de push do Netlify nao disparou de forma confiavel (deploy manual foi
+  necessario); Action ganhou passo opcional de build hook (Secret NETLIFY_BUILD_HOOK).
+- Teste de aceite da receita: 03/08/2026, todos os canais, deve bater R$ 9.120,28.
 
 ### Sessao de 04/08 (parte 2): o que mudou
 - Pipeline: serie_90d diaria (v/a/k/c/q/r/qm/rm, esparsa) + mensal_24m (24 meses) por produto;

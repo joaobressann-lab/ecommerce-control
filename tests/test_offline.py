@@ -14,6 +14,7 @@ from pipeline.build import _agregar_vendas, _montar_produto, _hoje_brt
 from pipeline.nuvemshop import (
     _categoria_departamento,
     build_ean_ref_map,
+    data_local,
     parse_order_lines,
     parse_product,
 )
@@ -244,6 +245,42 @@ def test_canais_serie_e_mensal() -> None:
     check(prod_json["classe"] == "ESTRELA", "classe nao deveria mudar com canais externos")
 
 
+def test_receita_canonica_total_com_frete() -> None:
+    """Receita canonica: TOTAL do pedido (com frete e desconto de pedido) rateado
+    proporcionalmente entre as linhas, soma batendo exata com o total."""
+    produtos = [parse_product(PRODUTO_ESTRELA, 1)]
+    mapa = build_ean_ref_map(produtos)
+    pedido = {
+        "id": 600, "payment_status": "paid", "status": "open", "storefront": "store",
+        "created_at": ONTEM_ISO,
+        "total": "633.13",  # itens 599.80 + frete 33.33
+        "products": [
+            {"variant_id": 11, "sku": "7890000000018", "quantity": 1, "price": "299.90"},
+            {"variant_id": 12, "sku": "7890000000025", "quantity": 1, "price": "299.90"},
+        ],
+    }
+    linhas = parse_order_lines(pedido, mapa, loja=1)
+    check(len(linhas) == 2, "esperava 2 linhas")
+    soma = round(sum(l.receita for l in linhas), 2)
+    check(abs(soma - 633.13) < 0.001, f"soma das linhas deve bater o total: {soma}")
+    check(all(l.preco_unit_pago == 299.90 for l in linhas),
+          "preco unitario pago segue o do item (sem frete)")
+
+    # Pedido pendente nao conta.
+    pendente = dict(pedido, id=601, payment_status="pending")
+    check(parse_order_lines(pendente, mapa, loja=1) == [], "pendente nao gera receita")
+
+
+def test_data_local_fuso_sao_paulo() -> None:
+    """created_at vem em UTC; pedido de 01:30 UTC e do dia anterior em BRT."""
+    check(data_local("2026-08-04T01:30:00+0000") == "2026-08-03",
+          "01:30 UTC deveria cair em 03/08 BRT")
+    check(data_local("2026-08-03T14:00:00+0000") == "2026-08-03",
+          "14:00 UTC continua 03/08 BRT")
+    check(data_local("2026-08-03T10:00:00-0300") == "2026-08-03",
+          "timestamp ja em BRT mantem a data")
+
+
 def test_nao_publicado_penalizado() -> None:
     prod = parse_product(PRODUTO_NAO_PUBLICADO, 1)
     corte_30d = HOJE - timedelta(days=30)
@@ -260,6 +297,8 @@ def main() -> None:
         test_build_produto_estrela,
         test_merge_ga4,
         test_canais_serie_e_mensal,
+        test_receita_canonica_total_com_frete,
+        test_data_local_fuso_sao_paulo,
         test_nao_publicado_penalizado,
     ]
     for t in testes:
