@@ -273,6 +273,7 @@ const CANAIS = [
   {id:"mob", nome:"Mobile", site:true},
   {id:"any", nome:"ANYMARKET", site:false},
   {id:"man", nome:"Pedidos manuais", site:false},
+  {id:"out", nome:"Outro", site:false},
 ];
 const CANAL_POR_NOME = Object.fromEntries(CANAIS.map(c=>[c.nome,c]));
 const ORIGENS = [
@@ -474,8 +475,9 @@ function canaisInfo(){
   const sel=vm?new Set(["lv","mob"]):STATE.canais;
   const site=sel.has("lv")||sel.has("mob");
   const siteParcial=site&&!(sel.has("lv")&&sel.has("mob"));
-  const ext=sel.has("any")||sel.has("man");
-  const extParcial=ext&&!(sel.has("any")&&sel.has("man"));
+  const naoSite=CANAIS.filter(c=>!c.site).map(c=>c.id);
+  const ext=naoSite.some(id=>sel.has(id));
+  const extParcial=ext&&!naoSite.every(id=>sel.has(id));
   return {sel,site,ext,siteParcial,extParcial,vm};
 }
 
@@ -1173,7 +1175,7 @@ function renderAvisos(){
   if(STATE.origens.size)av.push("filtro de origem: atribuição GA4 pelo preset "+presetOrigem(r)+" (não recorta pela data exata)");
   const ci=canaisInfo();
   if(ci.siteParcial)av.push("por produto, Loja virtual e Mobile são agregados como site");
-  if(ci.extParcial)av.push("por produto, ANYMARKET e manuais são agregados como fora do site");
+  if(ci.extParcial)av.push("por produto, ANYMARKET, manuais e outros são agregados como fora do site");
   if(ci.ext&&STATE.tab==="produtos"&&!STATE.vm)av.push("canais fora do site incluídos: score continua só site");
   document.getElementById("avisos").innerHTML=av.map(a=>`<span class="badge aviso">${escA(a)}</span>`).join("");
 }
